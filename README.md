@@ -25,9 +25,9 @@ The production preview runs at `http://127.0.0.1:4173`. The complete website is 
 
 For browser workflow checks, keep `npm run preview` running in another terminal, then run `node scripts/smoke-app.mjs`. The script uses installed Microsoft Edge by default; set `PROOF_QA_BROWSER` to another Playwright browser channel when needed. `node scripts/smoke-ocr.mjs` separately tests real OCR, worker cancellation/recovery, and same-origin runtime assets using installed Chrome. The browser workflow suite covers approval, requested changes, persistence, actual single/batch OCR, local history clearing, keyboard focus, and mobile navigation.
 
-The final local checks passed 23 unit tests, ten browser workflow checks, the production Angular build, and a full dependency audit with zero reported vulnerabilities. These are prototype checks, not a full accessibility certification or representative OCR accuracy study.
+The use-case audit expanded the suite to 69 unit tests and a separate browser regression suite for unreadable images, restoration after refresh, explicit manual decisions, and invalid batches. Run `node scripts/check-use-cases.mjs` with the preview running. The original ten workflow checks remain in `scripts/smoke-app.mjs`. See [the complete assignment checklist](docs/use-cases.md) for coverage and measured performance. These are prototype checks, not a full accessibility certification or representative OCR accuracy study.
 
-With the preview running, `node scripts/smoke-app.mjs` exercises the browser workflows, including real single/batch OCR, decision persistence, and mobile navigation. It uses installed Microsoft Edge by default and saves screenshots plus a report under `.openai/`; set `PROOF_QA_BROWSER` to another Playwright browser channel if needed. This suite changes only its isolated browser context.
+Browser scripts use isolated browser contexts and preserve your normal local workspace. Generated screenshots and reports are not required for deployment.
 
 ## Try the review workflow
 
@@ -36,6 +36,8 @@ With the preview running, `node scripts/smoke-app.mjs` exercises the browser wor
 3. Inspect the artwork and confirm the warning's typography. This human check is separate from the exact warning text comparison.
 4. Try the other samples for an ABV mismatch, a missing warning, an imported label with no country of origin, and capitalization/apostrophe normalization.
 5. Upload a JPEG, PNG, or WebP label to run Tesseract OCR on your own image. Enter the application values to compare against the extracted text.
+6. For a failed reading or an uploaded image lost after refresh, use **Replace artwork** or **Restore artwork** on the original record. The application values and record ID are kept, while OCR and reviewer confirmations run again.
+7. If OCR misreads an otherwise correct label, visually inspect every field and warning, confirm the typography, and use **Record manual approval** with a reason and explicit attestation. Automated findings stay unchanged in the report. An unreadable image can also be returned using **Request changes** with a reason.
 
 Sample images and application fields are fictional. Sample observations and confidence values are curated fixtures, explicitly presented as samples. They are not live OCR output, benchmark measurements, or real applications. Uploaded images take the actual OCR path.
 
@@ -52,6 +54,7 @@ bourbon.png,Old Tom Distillery,spirits,Kentucky Straight Bourbon Whiskey,45%,750
 
 - `beverage`: `spirits`, `wine`, or `beer`.
 - `abv`: application alcohol percentage, for example `45%`.
+- For beer/wine only, an unknown application ABV can be left blank. Missing declarations, possible exceptions, and wine ranges require a documented manual review; the app does not infer legal eligibility from the category alone.
 - `netContents`: application volume, for example `750 mL`, `0.75 L`, or `25.4 fl oz`.
 - `producer`: the producer/bottler name and address as expected on the label.
 - `imported`: `true` or `false`; country is compared for imported products.
@@ -60,7 +63,9 @@ The downloadable [sample manifest](public/samples/batch-template.csv) matches th
 
 ## Deploy
 
-See [the deployment guide](docs/deployment.md) for exact Azure Static Web Apps settings and submission checks.
+See [the deployment guide](docs/deployment.md) for GitHub Pages and Azure Static Web Apps settings. **GitHub Pages is the prepared free deployment path for a public submission repository.** Its workflow tests and builds the app before deployment and handles the repository subpath used by project sites.
+
+`npm run build:pages` creates `dist-pages/` with `/proof-label-review/` as the default base path. In GitHub Actions the correct base path comes from Pages configuration and repository metadata. Run `node scripts/smoke-pages.mjs` after that build to exercise the actual Angular artifact and real OCR under its subpath. A GitHub account/repository with Pages enabled is needed to publish; no GitHub publication is claimed before that connection and deployment succeed.
 
 Run `npm ci` followed by `npm run build`, then publish the **contents of `dist/`** to an HTTPS static website host. The configured build output is `dist/`, with no additional `browser/` subdirectory. The repository requires no application server, database, API key, or paid model endpoint.
 
@@ -88,11 +93,11 @@ Regenerate the original SVG sample artwork with `node scripts/generate-sample-ar
 ## Verification behavior
 
 - Ordinary text comparisons normalize capitalization, whitespace, and curly apostrophes. Brand and producer names still need to occur as complete text values rather than arbitrary substrings.
-- ABV is compared numerically, including consistency with a US proof declaration when present. Net contents support mL, L, and US fluid-ounce conversion with a small rounding tolerance.
+- ABV is compared numerically, including consistency with a US proof declaration when present. Alcohol by weight is a different measure and cannot pass as ABV. Metric quantities and quantities within the same unit family must match exactly after conversion. A small rounding tolerance applies only between metric and US fluid-ounce declarations.
 - The government warning is compared against its complete required statement. Only layout whitespace is ignored; capitalization, wording, punctuation, and the uppercase header are checked.
 - OCR cannot reliably prove bold weight, minimum type size, contrast, or placement. Warning typography always requires visual confirmation by a reviewer.
 - Low-confidence OCR cannot silently produce an automatic match. Reviewers can inspect raw extracted text, request a clearer image, and correct application values. OCR text is preserved without manual edits.
-- The application checks the fields supplied for the prototype. It does not apply all beverage-specific exemptions, determine whether a product belongs to a particular legal class, or perform a complete label-layout assessment.
+- Potential beer/wine ABV exemptions and wine ranges are routed to review. A reviewer can independently verify an exception and record their reason; the app does not apply all beverage-specific exemptions, determine a product's legal classification, or perform a complete label-layout assessment.
 
 The warning reference used for the implementation is the [TTB health warning statement guidance](https://www.ttb.gov/regulated-commodities/beverage-alcohol/beer/labeling/malt-beverage-health-warning). This prototype deliberately avoids inferring legal compliance from OCR alone.
 
@@ -101,6 +106,8 @@ The warning reference used for the implementation is the [TTB health warning sta
 The stakeholder's five-second target is a design goal, not a guaranteed service level. OCR workers are reused, large images are resized, English model files are hosted locally, and the pool limits concurrent work to two images. The interface reports progress and actual processing time for uploads. Sample fixtures do not report invented processing durations.
 
 A first run must load and initialize the OCR engine, which can take longer. Image size, label typography, browser, CPU, network, and glare affect both speed and accuracy. A large batch takes proportionally longer; it does not process hundreds of labels in five seconds. Initialization and recognition have explicit timeouts with actionable error messages.
+
+A real local-browser audit processed all 300 uploaded test images in 85.293 seconds, with the first result observed within 1.709 seconds. On this desktop with clear fictional artwork, first-upload-button-to-result p95 was 1.299 seconds across ten fresh contexts and 0.787 seconds across twenty warm trials. These measurements are not a general device/photo/network guarantee; see [performance evidence](docs/performance.md) for the measured revision, methodology, and limits.
 
 OCR supports English text and automatic rotation, with basic image resizing and orientation handling. Curved bottles, severe perspective, low resolution, glare, unusual type, and very small warning text may still require a better photo or manual correction. There is no cloud vision fallback because the assignment emphasizes a standalone prototype and restricted networks.
 

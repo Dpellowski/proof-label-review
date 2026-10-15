@@ -70,3 +70,65 @@ The pool permits two reusable OCR workers. Recognition and image preparation hav
 The build copies 10 self-hosted OCR assets totaling 31.6 MiB. The largest single file is 4,751,193 bytes (4.53 MiB). This Chrome run fetched only the worker, selected SIMD/LSTM loader, and English data: approximately 6.7 MiB before host-level HTTP compression. Other core variants are packaged so the library can select a compatible browser implementation.
 
 A production evaluation should use a representative, permission-cleared collection of actual label photos, measure cold and warm behavior on target devices and network speeds, and record per-field accuracy and latency percentiles. No such dataset or production benchmark is claimed by this submission.
+
+## Real application batch and repeated latency audit
+
+On October 15, 2026, a separate audit exercised the built Angular application through its actual upload dialogs, file inputs, application forms, local OCR workers, local review persistence, and CSV download. It did not replace OCR with fixture text, mock a worker, or call the verifier directly. The sample artwork itself is fictional, clean, flat artwork, not a photographed bottle.
+
+The audit used the same Windows desktop, Intel Core i9-13900K (24 cores / 32 logical processors), and Node 22.14.0 described above, with installed headless Microsoft Edge 155.0.0.0. The browser reported 32 GiB of device memory. The preview ran at `http://127.0.0.1:4173`; no network throttling or CPU throttling was applied. These measurements preceded the final verifier and review-control correctness edits, which retain the same OCR pipeline and two-worker queue. The numbers below are observations from that audited build, not a claimed rerun of the final revision.
+
+### 300 real image uploads
+
+The input was 300 distinct filenames and a matching 300-row CSV: 50 copies each of the six PNG files in `public/samples/`. Total image bytes were 55,803,300 (about 53.2 MiB). Every image went through real OCR. Repeating six designs tests queue capacity, metadata mapping, export completeness, and throughput; it does not establish accuracy over 300 different products.
+
+| Measurement                                             | Observed result                                                              |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Uploaded images completed                               | 300 / 300; zero errors                                                       |
+| First completed result observed                         | 1.709 s after clicking `Verify 300 labels`                                   |
+| 200 completed results observed within the 300-image run | 56.065 s                                                                     |
+| Full 300-image queue completed                          | **85.293 s**                                                                 |
+| Per-record OCR call duration, p50 / p95 / max           | 596 / 626 / 961 ms                                                           |
+| Real OCR workers / maximum active reading records       | 2 / 2                                                                        |
+| Application metadata                                    | All fields in all 300 records matched their CSV rows                         |
+| Downloaded report                                       | 2,550 field rows; all 300 uploads plus six demo records; no CSV parse errors |
+| Search-and-clear interactions while OCR was active      | 23; p50 69 ms, p95 79 ms, max 119 ms                                         |
+| Longest observed main-thread task                       | 67 ms                                                                        |
+| Largest interval from a nominal 100 ms heartbeat        | 138.4 ms                                                                     |
+| Unhandled browser errors / external HTTP requests       | 0 / 0                                                                        |
+
+The first-result and 200-result times are observational upper bounds from approximately 750 ms polling, with brief UI probes during the run. The displayed per-record `durationMs` starts when that record enters its OCR call, not when all 300 files were submitted, so it excludes the record's wait in the application queue. Queue completion and per-record latency measure different things. The five-second target applies to a label result, not the entire 300-image queue; this run took about 85 seconds to finish the batch.
+
+### Ten fresh-context and twenty warm-worker trials
+
+Each trial uploaded the actual `old-tom-bourbon.png` fixture through `New verification`, filled the application form, clicked `Verify label`, and waited for a saved completed record containing real OCR text. Ten trials used separate fresh browser contexts with no local storage, IndexedDB language cache, or preexisting OCR worker. Twenty trials reused one page and worker after an additional warm-up upload. The warm-up is excluded from the reported twenty trials.
+
+| Measurement                                             | Trials | p50     | p95     | Max     |
+| ------------------------------------------------------- | ------ | ------- | ------- | ------- |
+| Fresh context: first upload button through ready result | 10     | 1.181 s | 1.299 s | 1.299 s |
+| Fresh context: `Verify label` through ready result      | 10     | 1.070 s | 1.169 s | 1.169 s |
+| Fresh context: recorded OCR-call duration               | 10     | 1.015 s | 1.108 s | 1.108 s |
+| Warm worker: first upload button through ready result   | 20     | 0.779 s | 0.787 s | 0.804 s |
+| Warm worker: `Verify label` through ready result        | 20     | 0.693 s | 0.698 s | 0.708 s |
+| Warm worker: recorded OCR-call duration                 | 20     | 0.628 s | 0.653 s | 0.654 s |
+
+Percentiles use the nearest-rank method. The first-button measurement starts immediately before opening the upload dialog and includes automated file selection and form filling. The page has already loaded. Opening the upload dialog begins worker preparation, so some initialization overlaps form entry; the submit-only measurement does not include that earlier work. The saved-record observation uses 50 ms polling and includes browser/protocol overhead. Fresh contexts reset browser storage and workers, but do not reset the operating system's filesystem cache or simulate a cold remote network.
+
+All 30 measured trials, plus the warm-up upload, completed without unhandled browser errors or external HTTP requests. This is evidence that the app reaches the roughly five-second goal for this clear fixture on this desktop over loopback. It is not a guarantee for real photographs, perspective, glare, mobile hardware, or slow first-load network conditions. OCR confidence remains an engine score, not a measured accuracy percentage.
+
+### Reproduce the application benchmarks
+
+After dependency installation, build the application and keep the preview running in one terminal:
+
+```sh
+npm run build
+npm run preview
+```
+
+Run the benchmarks sequentially in another terminal, so they do not contend for CPU:
+
+```sh
+node scripts/benchmark-batch.mjs
+node scripts/benchmark-latency.mjs
+```
+
+Windows defaults to installed Microsoft Edge. Other platforms default to Playwright Chromium, which must be installed for Playwright. Set `PROOF_QA_BROWSER` to an available channel such as `chrome`, and `PROOF_QA_URL` to change the preview URL. Both scripts locate project files relative to their own script location. Generated batch PNGs/CSV use a temporary directory under the operating system's temp root and are removed afterward; reports and download/screenshot evidence are written to `.openai/benchmarks/`. These generated artifacts are not application source.

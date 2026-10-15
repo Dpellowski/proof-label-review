@@ -1,0 +1,116 @@
+{
+  "baseUrl": "http://127.0.0.1:4173",
+  "browser": "msedge",
+  "fixtureDisclosure": "The manual-review scenario seeds an OCR error explicitly; other uploaded-image cases use the real OCR engine.",
+  "findings": [
+    {
+      "name": "Case and apostrophe differences match without a manual override",
+      "result": "pass"
+    },
+    {
+      "name": "JPEG artwork is accepted and recognized through the real upload workflow",
+      "result": "pass",
+      "detail": {
+        "format": "JPEG",
+        "width": 1600,
+        "height": 2240,
+        "bytes": 350829,
+        "confidence": 95,
+        "durationMs": 1092,
+        "automatedStatus": "review"
+      }
+    },
+    {
+      "name": "WebP artwork is accepted and recognized through the real upload workflow",
+      "result": "pass",
+      "detail": {
+        "format": "WebP",
+        "width": 1600,
+        "height": 2240,
+        "bytes": 178112,
+        "confidence": 95,
+        "durationMs": 990,
+        "automatedStatus": "review"
+      }
+    },
+    {
+      "name": "Rotated and dim artwork finishes with reviewable results or a recoverable image error",
+      "result": "pass",
+      "detail": {
+        "transformation": "8-degree rotation and 18% black overlay",
+        "state": "ready",
+        "confidence": 95,
+        "durationMs": 1599,
+        "automatedStatus": "review",
+        "decision": null
+      }
+    },
+    {
+      "name": "Corrupt artwork can be returned with a required reason and replaced on the same review",
+      "result": "pass",
+      "detail": {
+        "originalState": "error",
+        "replacementState": "ready",
+        "recordPreserved": true
+      }
+    },
+    {
+      "name": "A valid blank PNG is reported as unreadable and can request a clearer image",
+      "result": "pass",
+      "detail": {
+        "state": "error",
+        "confidence": 0,
+        "comparisonsCreated": false
+      }
+    },
+    {
+      "name": "Reloaded artwork can be restored without repeating application entry or retaining its old approval",
+      "result": "pass"
+    },
+    {
+      "name": "Explicit manual review records a reason and confirmation while preserving OCR flags in history and CSV",
+      "result": "pass",
+      "detail": {
+        "fixture": "seeded OCR error; actual artwork unchanged",
+        "automatedStatus": "flagged",
+        "manualApprovalPersisted": true
+      }
+    },
+    {
+      "name": "Unsupported image formats give a recoverable upload error",
+      "result": "pass"
+    },
+    {
+      "name": "Duplicate image filenames are rejected before batch processing",
+      "result": "pass"
+    },
+    {
+      "name": "A 301-image batch is rejected with the documented 300-image limit",
+      "result": "pass"
+    },
+    {
+      "name": "Batch CSV without a filename column is rejected",
+      "result": "pass"
+    },
+    {
+      "name": "Every uploaded image requires a matching CSV filename",
+      "result": "pass"
+    },
+    {
+      "name": "Imported batches require a nonempty country of origin",
+      "result": "pass"
+    },
+    {
+      "name": "Batch imported flags must explicitly be true or false",
+      "result": "pass"
+    },
+    {
+      "name": "Duplicate application filenames are rejected in the CSV",
+      "result": "pass"
+    },
+    {
+      "name": "Extra CSV application rows cannot silently lose their labels",
+      "result": "pass"
+    }
+  ]
+}

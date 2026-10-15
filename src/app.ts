@@ -16,6 +16,7 @@ import type { ReviewRecord } from "./lib/review-store";
 import type { ApplicationFields } from "./lib/verification";
 import { STANDARD_WARNING } from "./lib/verification";
 import { downloadCsv } from "./lib/csv";
+import { validateApplication, validateArtwork } from "./lib/upload-validation";
 
 @Component({
   selector: "proof-app",
@@ -50,6 +51,9 @@ export class AppComponent {
   readonly notes = signal("");
   readonly returnError = signal("");
   readonly editError = signal("");
+  readonly manualReason = signal("");
+  readonly manualAllFields = signal(false);
+  readonly manualError = signal("");
   readonly active = this.store.active;
   readonly total = computed(() => this.store.records().length);
   readonly pending = computed(
@@ -143,10 +147,32 @@ export class AppComponent {
       !!this.active()?.imageUrl &&
       !this.active()?.decision,
   );
+  readonly needsManualReview = computed(
+    () =>
+      this.active()?.result?.checks.some(
+        (check) =>
+          check.key !== "warningTypography" && check.status !== "match",
+      ) || false,
+  );
+  readonly canApproveManually = computed(() => {
+    const r = this.active();
+    return (
+      !!r &&
+      r.state === "ready" &&
+      !!r.result &&
+      this.needsManualReview() &&
+      !!r.imageUrl &&
+      r.boldConfirmed &&
+      !r.decision
+    );
+  });
   @ViewChild("imageDialog") imageDialog!: ElementRef<HTMLDialogElement>;
   @ViewChild("returnDialog") returnDialog!: ElementRef<HTMLDialogElement>;
   @ViewChild("clearDialog") clearDialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild("manualDialog") manualDialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild("artworkInput") artworkInput!: ElementRef<HTMLInputElement>;
   private uploadTrigger?: HTMLElement;
+  private replacementId?: string;
 
   go(nav: "queue" | "history" | "guide") {
     this.nav.set(nav);
@@ -162,7 +188,8 @@ export class AppComponent {
     this.editError.set("");
   }
   status(r: ReviewRecord) {
-    if (r.decision === "approved") return "Approved";
+    if (r.decision === "approved")
+      return r.manualReview ? "Manually approved" : "Approved";
     if (r.decision === "returned") return "Changes requested";
     if (r.state === "queued") return "Queued";
     if (r.state === "processing") return "Reading label";
@@ -230,13 +257,9 @@ export class AppComponent {
   }
   saveApplication() {
     const app = this.draft();
-    if (
-      ![app.brand, app.classType, app.abv, app.netContents, app.producer].every(
-        (v) => v.trim(),
-      ) ||
-      (app.imported && !app.country.trim())
-    ) {
-      this.editError.set("Complete all required application fields.");
+    const error = validateApplication(app);
+    if (error) {
+      this.editError.set(error);
       return;
     }
     const r = this.active();
@@ -255,6 +278,58 @@ export class AppComponent {
         r.application.brand +
         " is approved in this prototype.",
     );
+  }
+  openManualReview() {
+    if (!this.canApproveManually()) return;
+    this.manualReason.set("");
+    this.manualAllFields.set(false);
+    this.manualError.set("");
+    this.manualDialog.nativeElement.showModal();
+  }
+  approveManually() {
+    if (!this.manualReason().trim()) {
+      this.manualError.set(
+        "Explain how you resolved the OCR flags or verified an applicable exception.",
+      );
+      return;
+    }
+    if (!this.manualAllFields() || !this.canApproveManually()) {
+      this.manualError.set(
+        "Inspect the artwork and confirm every required field before approving.",
+      );
+      return;
+    }
+    const r = this.active();
+    if (!r || !this.store.approveManually(r.id, this.manualReason())) return;
+    this.manualDialog.nativeElement.close();
+    this.store.notice.set(
+      "Manual approval saved with your reason. Automated findings are preserved.",
+    );
+  }
+  chooseReplacement() {
+    const r = this.active();
+    if (!r || r.sample || r.state === "processing" || r.state === "queued")
+      return;
+    this.replacementId = r.id;
+    this.artworkInput.nativeElement.click();
+  }
+  replaceArtwork(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const files = Array.from(input.files || []);
+    input.value = "";
+    if (!files.length || !this.replacementId) return;
+    const error = validateArtwork(files);
+    if (error) {
+      this.store.notice.set(error);
+      return;
+    }
+    if (this.store.replaceArtwork(this.replacementId, files[0])) {
+      this.tab.set("verification");
+      this.store.notice.set(
+        "Artwork replaced. OCR is running again; previous confirmations and decisions were cleared.",
+      );
+    }
+    this.replacementId = undefined;
   }
   openReturn() {
     this.returnError.set("");
@@ -312,6 +387,9 @@ export class AppComponent {
           source: r.sample ? "sample fixture" : "uploaded image",
           status: this.status(r),
           decision: r.decision || "pending",
+          automatedStatus: r.result?.status || r.state,
+          manualReviewReason: r.manualReview?.reason || "",
+          manualReviewConfirmed: r.manualReview?.confirmedAllFields || false,
           field: c.label,
           expected: c.expected,
           observed: c.observed,

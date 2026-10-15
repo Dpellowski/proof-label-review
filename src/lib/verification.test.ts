@@ -71,6 +71,25 @@ describe("application matching", () => {
     );
   });
 
+  it.each(["brand", "classType", "abv", "netContents", "producer"] as const)(
+    "requires review when the application %s is blank",
+    (key) => {
+      expect(check(label, key, { ...application, [key]: "  " }).status).toBe(
+        "review",
+      );
+    },
+  );
+
+  it.each([
+    ["brand", "STONE’S THROW"],
+    ["classType", application.classType],
+    ["abv", "45% Alc./Vol. (90 Proof)"],
+    ["netContents", application.netContents],
+    ["producer", application.producer],
+  ])("flags an absent label %s", (key, declaration) => {
+    expect(check(label.replace(declaration, ""), key).status).toBe("mismatch");
+  });
+
   it("requires country of origin on imports", () => {
     const imported = { ...application, imported: true, country: "Scotland" };
     expect(check(label, "country", imported).status).toBe("mismatch");
@@ -107,6 +126,18 @@ describe("application matching", () => {
 });
 
 describe("numeric declarations", () => {
+  it("recognizes the assignment's Old Tom distilled-spirits example", () => {
+    const oldTom = { ...application, brand: "OLD TOM DISTILLERY" };
+    expect(
+      verifyLabel(
+        label.replace("STONE’S THROW", oldTom.brand),
+        oldTom,
+        96,
+        true,
+      ).status,
+    ).toBe("matched");
+  });
+
   it("matches decimal ABV and checks proof against it", () => {
     expect(
       check(
@@ -166,6 +197,40 @@ describe("numeric declarations", () => {
     ).toBe("mismatch");
   });
 
+  it.each([
+    "45% alcohol by weight",
+    "Alcohol 45% by weight",
+    "Alcohol by weight: 45%",
+    "45% ABW",
+    "ABW 45%",
+    "45% alcohol by\nweight",
+    "45%\nalcohol by weight",
+    "Alcohol by weight\n45%",
+    "Alcohol by\nweight: 45%",
+  ])("does not treat %s as alcohol by volume", (declaration) => {
+    const result = check(
+      label.replace("45% Alc./Vol. (90 Proof)", declaration),
+      "abv",
+    );
+    expect(result.status).toBe("mismatch");
+    expect(result.detail).toContain("weight");
+  });
+
+  it("compares ABV independently when alcohol-by-weight information also appears", () => {
+    expect(check(`${label}\n36% alcohol by weight`, "abv").status).toBe(
+      "match",
+    );
+    expect(
+      check(
+        label.replace(
+          "45% Alc./Vol. (90 Proof)",
+          "40% Alc./Vol.\n45% alcohol by weight",
+        ),
+        "abv",
+      ).status,
+    ).toBe("mismatch");
+  });
+
   it("converts liters and rounded US fluid ounces", () => {
     expect(check(label.replace("750 mL", "0.75 L"), "netContents").status).toBe(
       "match",
@@ -194,6 +259,180 @@ describe("numeric declarations", () => {
       check(label, "netContents", { ...application, netContents: "750" })
         .status,
     ).toBe("review");
+  });
+
+  it.each(["751 mL", "749 mL", "0.751 L"])(
+    "does not hide a changed metric volume (%s) behind conversion rounding",
+    (volume) => {
+      expect(check(label.replace("750 mL", volume), "netContents").status).toBe(
+        "mismatch",
+      );
+    },
+  );
+
+  it("requires exact quantities within US units and for small metric values", () => {
+    expect(
+      check(label.replace("750 mL", "12.01 fl oz"), "netContents", {
+        ...application,
+        netContents: "12 fl oz",
+      }).status,
+    ).toBe("mismatch");
+    expect(
+      check(label.replace("750 mL", "0.1 mL"), "netContents", {
+        ...application,
+        netContents: "0.2 mL",
+      }).status,
+    ).toBe("mismatch");
+    expect(
+      check(label.replace("750 mL", "0.750 L"), "netContents").status,
+    ).toBe("match");
+  });
+});
+
+describe("beer and wine alcohol-content review", () => {
+  const tableWine: ApplicationFields = {
+    ...application,
+    beverage: "wine",
+    classType: "Table Wine",
+    abv: "12%",
+  };
+  const wineLabel = label
+    .replace(application.classType, tableWine.classType)
+    .replace("45% Alc./Vol. (90 Proof)", "12% Alc./Vol.");
+  const beer: ApplicationFields = {
+    ...application,
+    beverage: "beer",
+    classType: "Lager",
+    abv: "5%",
+  };
+  const beerLabel = label
+    .replace(application.classType, beer.classType)
+    .replace("45% Alc./Vol. (90 Proof)", "5% Alc./Vol.");
+
+  it("does not infer an exception when an application ABV is absent", () => {
+    for (const fields of [beer, tableWine]) {
+      const result = check(label, "abv", { ...fields, abv: "" });
+      expect(result.status).toBe("review");
+      expect(result.detail).toContain("exception");
+    }
+  });
+
+  it("compares stated beer and wine ABV and preserves numerical mismatches", () => {
+    expect(check(beerLabel, "abv", beer).status).toBe("match");
+    expect(check(wineLabel, "abv", tableWine).status).toBe("match");
+    expect(
+      check(beerLabel.replace("5% Alc./Vol.", "6% Alc./Vol."), "abv", beer)
+        .status,
+    ).toBe("mismatch");
+    expect(
+      check(
+        wineLabel.replace("12% Alc./Vol.", "13% Alc./Vol."),
+        "abv",
+        tableWine,
+      ).status,
+    ).toBe("mismatch");
+  });
+
+  it("routes an omitted beer ABV to review of added alcohol and state requirements", () => {
+    const result = check(beerLabel.replace("5% Alc./Vol.", ""), "abv", beer);
+    expect(result.status).toBe("review");
+    expect(result.detail).toContain("state requirements");
+    expect(result.detail).toContain("added flavors");
+  });
+
+  it.each(["Table Wine", "Light Wine", "Cherry Table Wine"])(
+    "routes eligible %s without a numeric declaration to manual review",
+    (designation) => {
+      const result = check(
+        wineLabel
+          .replace("Table Wine", designation)
+          .replace("12% Alc./Vol.", ""),
+        "abv",
+        { ...tableWine, classType: designation },
+      );
+      expect(result.status).toBe("review");
+      expect(result.detail).toContain("brand label");
+    },
+  );
+
+  it.each(["6.9%", "14.1%"])(
+    "does not apply the table-wine omission exception at %s",
+    (abv) => {
+      expect(
+        check(wineLabel.replace("12% Alc./Vol.", ""), "abv", {
+          ...tableWine,
+          abv,
+        }).status,
+      ).toBe("mismatch");
+    },
+  );
+
+  it("requires the qualifying wine type in both application and artwork", () => {
+    expect(
+      check(
+        wineLabel
+          .replace("Table Wine", "Red Wine")
+          .replace("12% Alc./Vol.", ""),
+        "abv",
+        { ...tableWine, classType: "Red Wine" },
+      ).status,
+    ).toBe("mismatch");
+    expect(
+      check(
+        wineLabel
+          .replace("Table Wine", "Red Wine")
+          .replace("12% Alc./Vol.", ""),
+        "abv",
+        tableWine,
+      ).status,
+    ).toBe("mismatch");
+  });
+
+  it.each([
+    "11%-13% Alc. By Vol.",
+    "11% to 13% alcohol by volume",
+    "ALC. 11% TO 13% BY VOL.",
+  ])("routes the wine alcohol range %s to manual review", (range) => {
+    expect(
+      check(wineLabel.replace("12% Alc./Vol.", range), "abv", tableWine).status,
+    ).toBe("review");
+  });
+
+  it("does not let a wine range hide contradictions or an out-of-range application", () => {
+    const rangeLabel = wineLabel.replace(
+      "12% Alc./Vol.",
+      "11%-13% Alc. By Vol.",
+    );
+    expect(check(rangeLabel, "abv", { ...tableWine, abv: "14%" }).status).toBe(
+      "mismatch",
+    );
+    expect(check(`${rangeLabel}\n10% Alc./Vol.`, "abv", tableWine).status).toBe(
+      "mismatch",
+    );
+    expect(check(`${rangeLabel}\n20 proof`, "abv", tableWine).status).toBe(
+      "mismatch",
+    );
+    expect(
+      check(
+        beerLabel.replace("5% Alc./Vol.", "4%-6% Alc. By Vol."),
+        "abv",
+        beer,
+      ).status,
+    ).toBe("mismatch");
+  });
+
+  it("does not use a beer/wine omission exception to accept proof-only or weight-only declarations", () => {
+    expect(
+      check(
+        beerLabel.replace("5% Alc./Vol.", "5% alcohol by weight"),
+        "abv",
+        beer,
+      ).status,
+    ).toBe("mismatch");
+    expect(
+      check(wineLabel.replace("12% Alc./Vol.", "24 proof"), "abv", tableWine)
+        .status,
+    ).toBe("mismatch");
   });
 });
 

@@ -13,6 +13,7 @@ import { ApplicationFormComponent } from "./application-form";
 import { EMPTY_APPLICATION } from "../lib/review-store";
 import { parseBatchCsv } from "../lib/csv";
 import type { ApplicationFields } from "../lib/verification";
+import { validateApplication, validateArtwork } from "../lib/upload-validation";
 
 @Component({
   selector: "p-upload-dialog",
@@ -197,39 +198,10 @@ export class UploadDialogComponent implements AfterViewInit, OnDestroy {
     this.setFiles(Array.from((event.target as HTMLInputElement).files || []));
   }
   setFiles(files: File[]) {
-    this.error.set("");
-    if (files.length > (this.mode === "single" ? 1 : 300)) {
-      this.error.set(
-        this.mode === "single"
-          ? "Choose one image. Use Batch upload for multiple labels."
-          : "Please keep each batch to 300 images.",
-      );
-      return;
-    }
-    if (
-      files.some(
-        (f) => !["image/png", "image/jpeg", "image/webp"].includes(f.type),
-      )
-    ) {
-      this.error.set(
-        "Choose JPG, PNG or WebP images. Convert PDF or SVG labels to PNG first.",
-      );
-      return;
-    }
-    if (files.some((f) => f.size > 10 * 1024 * 1024 || f.size === 0)) {
-      this.error.set("Every image must be between 1 byte and 10 MB.");
-      return;
-    }
-    if (files.reduce((size, f) => size + f.size, 0) > 250 * 1024 * 1024) {
-      this.error.set(
-        "Keep each batch under 250 MB so this device stays responsive.",
-      );
-      return;
-    }
-    if (new Set(files.map((f) => f.name.toLowerCase())).size !== files.length) {
-      this.error.set("Image filenames must be unique within a batch.");
-      return;
-    }
+    this.files.set([]);
+    const error = validateArtwork(files, this.mode === "batch");
+    this.error.set(error || "");
+    if (error) return;
     this.files.set(files);
   }
   async selectCsv(event: Event) {
@@ -285,26 +257,14 @@ export class UploadDialogComponent implements AfterViewInit, OnDestroy {
     this.csvRows.set(rows);
     this.csvName.set(file.name);
   }
-  private valid(app: ApplicationFields) {
-    return (
-      ["spirits", "wine", "beer"].includes(app.beverage) &&
-      !!app.brand.trim() &&
-      !!app.classType.trim() &&
-      !!app.abv.trim() &&
-      !!app.netContents.trim() &&
-      !!app.producer.trim() &&
-      (!app.imported || !!app.country.trim())
-    );
-  }
   submit() {
     this.error.set("");
     if (!this.files().length) return;
     let applications: ApplicationFields[];
     if (this.mode === "single") {
-      if (!this.valid(this.application)) {
-        this.error.set(
-          "Complete all application fields, including country of origin for imports.",
-        );
+      const error = validateApplication(this.application);
+      if (error) {
+        this.error.set(error);
         return;
       }
       applications = [{ ...this.application }];
@@ -340,12 +300,9 @@ export class UploadDialogComponent implements AfterViewInit, OnDestroy {
           country: r["country"],
           imported: r["imported"].toLowerCase() === "true",
         };
-        if (!this.valid(app)) {
-          this.error.set(
-            "Complete the application values for " +
-              file.name +
-              ". Beverage must be spirits, wine or beer.",
-          );
+        const error = validateApplication(app);
+        if (error) {
+          this.error.set(file.name + ": " + error);
           return;
         }
         applications.push(app);

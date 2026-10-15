@@ -2,6 +2,7 @@ node_modules/
 .angular/
 out-tsc/
 dist/
+dist-pages/
 public/ocr/
 .sites-runtime/
 .env
@@ -13,3 +14,5 @@ test-results/
 .openai/*.png
 .openai/*.json.tmp
 .openai/qa-report.json
+.openai/use-cases-browser.json
+.openai/benchmarks/

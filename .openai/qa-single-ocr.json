@@ -1,5 +1,5 @@
 {
-  "id": "d3c137d1-bc37-4f90-8b88-d96021e7d7e2",
+  "id": "af871eb9-5d87-49bd-ae1e-8cb66ee6f29a",
   "filename": "old-tom-bourbon.png",
   "application": {
     "brand": "Old Tom Distillery",
@@ -20,8 +20,8 @@
   "boldConfirmed": false,
   "decision": null,
   "notes": "",
-  "createdAt": "2026-10-15T16:33:19.176Z",
-  "durationMs": 1057,
+  "createdAt": "2026-10-15T18:24:51.874Z",
+  "durationMs": 1119,
   "result": {
     "checks": [
       {
@@ -54,7 +54,7 @@
         "expected": "750 mL",
         "observed": "750 mL",
         "status": "match",
-        "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+        "detail": "Matches after unit conversion. Values within metric or US units match exactly; metric/US conversions allow 0.2% rounding (minimum 0.5 mL)."
       },
       {
         "key": "producer",

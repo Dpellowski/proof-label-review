@@ -56,18 +56,30 @@ import type { ApplicationFields } from "../lib/verification";
       </div>
       <div class="field">
         <label [for]="prefix + '-abv'"
-          >Alcohol content (ABV) <span aria-hidden="true">*</span></label
-        >
+          >Alcohol content (ABV)
+          @if (value.beverage === "spirits") {
+            <span aria-hidden="true">*</span>
+          }
+        </label>
         <input
           [id]="prefix + '-abv'"
           [name]="prefix + '-abv'"
           type="text"
-          required
+          [required]="value.beverage === 'spirits'"
           autocomplete="off"
           placeholder="e.g. 45%"
+          [attr.aria-describedby]="
+            value.beverage !== 'spirits' ? prefix + '-abv-help' : null
+          "
           [ngModel]="value.abv"
           (ngModelChange)="update('abv', $event)"
         />
+        @if (value.beverage !== "spirits") {
+          <small [id]="prefix + '-abv-help'" class="field-help"
+            >If alcohol content is not supplied, leave this blank. Any
+            applicable exception needs a manual review.</small
+          >
+        }
       </div>
       <div class="field">
         <label [for]="prefix + '-volume'"
@@ -144,6 +156,11 @@ import type { ApplicationFields } from "../lib/verification";
         flex-direction: column;
         gap: 7px;
         min-width: 0;
+      }
+      .field-help {
+        color: #61724f;
+        font-size: 11px;
+        line-height: 1.5;
       }
       .full {
         grid-column: 1 / -1;

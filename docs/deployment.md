@@ -2,6 +2,22 @@
 
 Proof is an Angular 21 static application. It has no backend deployment, API keys, database migrations, or paid OCR service. Build once and serve `dist/` over HTTPS, including the `ocr/` and `samples/` directories.
 
+## GitHub Pages: free public submission
+
+GitHub Pages supports public repositories on GitHub Free. A public repository can provide both assignment deliverables: source reviewers can inspect and a public working application. See [GitHub's custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+The ready-to-use workflow is [`.github/workflows/pages.yml`](../.github/workflows/pages.yml). It runs on pushes to `main`, pull requests, and manual workflow dispatch. Pull requests run tests and the Pages build; only `main` can deploy. Deployment uses the standard Pages environment and limited Pages/OIDC permissions, with no personal token stored in this repository.
+
+1. Sign in to GitHub and create a public repository containing the contents of this project at its root. Keep the default branch named `main`, or update the workflow's branch filters.
+2. In **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source. Pages must be enabled before the workflow's configuration step can read the site's metadata.
+3. Push the source to `main`, or run **Actions → Test and deploy GitHub Pages → Run workflow** after enabling Pages.
+4. Wait for the build and deploy jobs to succeed. The deployment's environment URL is the actual published URL, normally `https://OWNER.github.io/REPOSITORY/` for a project site. Use the returned URL rather than assuming publication succeeded.
+5. Verify the application, real OCR upload, artwork download, and batch CSV workflow at that public URL before submitting it.
+
+`npm run build:pages` uses `scripts/build-github-pages.mjs` to package OCR assets and build Angular into `dist-pages/`. The workflow reads Pages' `base_path` so project paths, user sites, and configured custom domains work correctly. A local build defaults to `/proof-label-review/`; set `PAGES_BASE_PATH` to test a different prefix. `node scripts/smoke-pages.mjs` starts a temporary server and exercises the actual built app plus real OCR under the configured subpath, including missing-asset checks. The normal `npm run build` still emits `dist/` with a root base path for other hosts.
+
+Publishing requires a connected GitHub account or an authenticated GitHub CLI with repository and Pages access. The workflow and artifact can be prepared and tested without account access, but this alone does not create a repository or a public site. The existing Sites preview remains private unless its audience is explicitly changed.
+
 ## Azure Static Web Apps
 
 The stakeholder's existing Azure environment makes Static Web Apps a practical deployment option. Create a Static Web App linked to the submission repository, and use these project-specific build values:

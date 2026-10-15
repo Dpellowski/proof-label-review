@@ -1,6 +1,6 @@
 [
   {
-    "id": "d2335c4d-7510-4420-992b-3ee9a65413eb",
+    "id": "e9fed5ad-d113-4695-87ad-569e998d7bfa",
     "filename": "old-tom-bourbon.png",
     "application": {
       "brand": "Old Tom Distillery",
@@ -21,8 +21,8 @@
     "boldConfirmed": false,
     "decision": null,
     "notes": "",
-    "createdAt": "2026-10-15T16:33:21.243Z",
-    "durationMs": 823,
+    "createdAt": "2026-10-15T18:24:53.941Z",
+    "durationMs": 846,
     "result": {
       "checks": [
         {
@@ -55,7 +55,7 @@
           "expected": "750 mL",
           "observed": "750 mL",
           "status": "match",
-          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+          "detail": "Matches after unit conversion. Values within metric or US units match exactly; metric/US conversions allow 0.2% rounding (minimum 0.5 mL)."
         },
         {
           "key": "producer",
@@ -97,7 +97,7 @@
     }
   },
   {
-    "id": "2f4ca325-1294-4b0c-bd09-2acf5a8d4f56",
+    "id": "b825b775-8c63-4695-adf7-a6d44d1e4a81",
     "filename": "stones-throw-gin.png",
     "application": {
       "brand": "Stone’s Throw",
@@ -118,8 +118,8 @@
     "boldConfirmed": false,
     "decision": null,
     "notes": "",
-    "createdAt": "2026-10-15T16:33:21.243Z",
-    "durationMs": 789,
+    "createdAt": "2026-10-15T18:24:53.941Z",
+    "durationMs": 772,
     "result": {
       "checks": [
         {
@@ -152,7 +152,7 @@
           "expected": "750 mL",
           "observed": "750 mL",
           "status": "match",
-          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+          "detail": "Matches after unit conversion. Values within metric or US units match exactly; metric/US conversions allow 0.2% rounding (minimum 0.5 mL)."
         },
         {
           "key": "producer",
@@ -194,7 +194,7 @@
     }
   },
   {
-    "id": "bcf47dad-7b9b-45c7-8666-1f5419c46557",
+    "id": "e0c326fd-d7db-4628-96dd-abfdbcc203c8",
     "filename": "maison-lucette-wine.png",
     "application": {
       "brand": "Maison Lucette",
@@ -215,8 +215,8 @@
     "boldConfirmed": false,
     "decision": null,
     "notes": "",
-    "createdAt": "2026-10-15T16:33:21.243Z",
-    "durationMs": 586,
+    "createdAt": "2026-10-15T18:24:53.941Z",
+    "durationMs": 584,
     "result": {
       "checks": [
         {
@@ -249,7 +249,7 @@
           "expected": "750 mL",
           "observed": "750 mL",
           "status": "match",
-          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+          "detail": "Matches after unit conversion. Values within metric or US units match exactly; metric/US conversions allow 0.2% rounding (minimum 0.5 mL)."
         },
         {
           "key": "producer",
@@ -299,7 +299,7 @@
     }
   },
   {
-    "id": "40b6e161-ff69-4565-9fcc-31cc5719c634",
+    "id": "13df392a-dd83-4208-8e20-383d71ff34f7",
     "filename": "pacific-standard-beer.png",
     "application": {
       "brand": "Pacific Standard",
@@ -320,8 +320,8 @@
     "boldConfirmed": false,
     "decision": null,
     "notes": "",
-    "createdAt": "2026-10-15T16:33:21.244Z",
-    "durationMs": 321,
+    "createdAt": "2026-10-15T18:24:53.941Z",
+    "durationMs": 325,
     "result": {
       "checks": [
         {
@@ -354,7 +354,7 @@
           "expected": "355 mL",
           "observed": "355 mL",
           "status": "match",
-          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+          "detail": "Matches after unit conversion. Values within metric or US units match exactly; metric/US conversions allow 0.2% rounding (minimum 0.5 mL)."
         },
         {
           "key": "producer",
@@ -396,7 +396,7 @@
     }
   },
   {
-    "id": "787da74b-13c3-4690-95cc-c180eba37fee",
+    "id": "da6eaf19-70b6-4197-9389-e73356dd6a9a",
     "filename": "amber-field-wine.png",
     "application": {
       "brand": "Amber Field",
@@ -417,8 +417,8 @@
     "boldConfirmed": false,
     "decision": null,
     "notes": "",
-    "createdAt": "2026-10-15T16:33:21.244Z",
-    "durationMs": 609,
+    "createdAt": "2026-10-15T18:24:53.941Z",
+    "durationMs": 610,
     "result": {
       "checks": [
         {
@@ -451,7 +451,7 @@
           "expected": "750 mL",
           "observed": "750 mL",
           "status": "match",
-          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+          "detail": "Matches after unit conversion. Values within metric or US units match exactly; metric/US conversions allow 0.2% rounding (minimum 0.5 mL)."
         },
         {
           "key": "producer",
@@ -493,7 +493,7 @@
     }
   },
   {
-    "id": "03e9a8ad-187d-4be4-92ef-b093d870a02e",
+    "id": "36abae2c-49f7-488c-97ec-98e248d692ea",
     "filename": "costa-azul-tequila.png",
     "application": {
       "brand": "Costa Azul",
@@ -514,8 +514,8 @@
     "boldConfirmed": false,
     "decision": null,
     "notes": "",
-    "createdAt": "2026-10-15T16:33:21.244Z",
-    "durationMs": 559,
+    "createdAt": "2026-10-15T18:24:53.941Z",
+    "durationMs": 563,
     "result": {
       "checks": [
         {
@@ -548,7 +548,7 @@
           "expected": "750 mL",
           "observed": "750 mL",
           "status": "match",
-          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+          "detail": "Matches after unit conversion. Values within metric or US units match exactly; metric/US conversions allow 0.2% rounding (minimum 0.5 mL)."
         },
         {
           "key": "producer",

@@ -23,6 +23,11 @@ export interface ReviewRecord {
   notes: string;
   createdAt: string;
   reviewedAt?: string;
+  manualReview?: {
+    reason: string;
+    confirmedAllFields: boolean;
+    automatedStatus: VerificationResult["status"];
+  };
 }
 export const EMPTY_APPLICATION: ApplicationFields = {
   brand: "",
@@ -64,6 +69,7 @@ export class ReviewStore {
   readonly engine = signal<"idle" | "loading" | "ready" | "error">("idle");
   readonly notice = signal("");
   private files = new Map<string, File>();
+  private artworkVersions = new Map<string, number>();
   private queueGeneration = 0;
 
   private load(): ReviewRecord[] {
@@ -99,7 +105,7 @@ export class ReviewStore {
             )
           )
             throw Error("Invalid saved record");
-          const sample = samples.find((s) => s.id === r.id);
+          const sample = r.sample ? samples.find((s) => s.id === r.id) : undefined;
           return {
             ...r,
             application: app,
@@ -116,6 +122,14 @@ export class ReviewStore {
             result: r.text
               ? verifyLabel(r.text, app, r.confidence, r.boldConfirmed)
               : undefined,
+            manualReview:
+              r.decision === "approved" &&
+              typeof r.manualReview?.reason === "string" &&
+              !!r.manualReview.reason.trim() &&
+              r.manualReview.confirmedAllFields === true &&
+              ["matched", "flagged", "review"].includes(r.manualReview.automatedStatus)
+                ? r.manualReview
+                : undefined,
           };
         });
     } catch {
@@ -160,6 +174,7 @@ export class ReviewStore {
     const rows = files.map((file, i): ReviewRecord => {
       const id = crypto.randomUUID();
       this.files.set(id, file);
+      this.artworkVersions.set(id, 0);
       return {
         id,
         filename: file.name,
@@ -181,6 +196,34 @@ export class ReviewStore {
     this.save();
     void this.runQueue();
   }
+  /** Replaces this review's image without duplicating its application or history entry. */
+  replaceArtwork(id: string, file: File): boolean {
+    const record = this.records().find((r) => r.id === id);
+    if (!record) return false;
+    const imageUrl = URL.createObjectURL(file);
+    if (!record.sample && record.imageUrl) URL.revokeObjectURL(record.imageUrl);
+    this.files.set(id, file);
+    this.artworkVersions.set(id, (this.artworkVersions.get(id) ?? 0) + 1);
+    this.update(id, {
+      filename: file.name,
+      imageUrl,
+      sample: false,
+      text: "",
+      confidence: 0,
+      durationMs: undefined,
+      result: undefined,
+      state: "queued",
+      progress: 0,
+      error: undefined,
+      boldConfirmed: false,
+      decision: null,
+      notes: "",
+      reviewedAt: undefined,
+      manualReview: undefined,
+    });
+    void this.runQueue();
+    return true;
+  }
   async runQueue() {
     if (this.running()) return;
     const generation = this.queueGeneration;
@@ -192,6 +235,7 @@ export class ReviewStore {
         (record = this.records().find((r) => r.state === "queued"))
       ) {
         const id = record.id;
+        const artworkVersion = this.artworkVersions.get(id) ?? 0;
         this.update(
           id,
           { state: "processing", progress: 0, error: undefined },
@@ -204,12 +248,29 @@ export class ReviewStore {
               "The image is no longer in memory. Upload it again to verify.",
             );
           const recognized = await recognizeLabel(file, (p) => {
-            if (generation === this.queueGeneration)
+            if (
+              generation === this.queueGeneration &&
+              artworkVersion === (this.artworkVersions.get(id) ?? 0)
+            )
               this.update(id, { progress: p }, false);
           });
           if (generation !== this.queueGeneration) return;
+          if (artworkVersion !== (this.artworkVersions.get(id) ?? 0)) continue;
           const current = this.records().find((r) => r.id === id);
           if (!current) continue;
+          this.engine.set("ready");
+          if (!recognized.text.trim()) {
+            this.update(id, {
+              ...recognized,
+              text: "",
+              result: undefined,
+              state: "error",
+              progress: 1,
+              error:
+                "No readable text was found. Replace the artwork with a closer, sharper image showing all label panels, or request a clearer image from the applicant.",
+            });
+            continue;
+          }
           this.update(id, {
             ...recognized,
             result: verifyLabel(
@@ -220,9 +281,9 @@ export class ReviewStore {
             state: "ready",
             progress: 1,
           });
-          this.engine.set("ready");
         } catch (error) {
           if (generation !== this.queueGeneration) return;
+          if (artworkVersion !== (this.artworkVersions.get(id) ?? 0)) continue;
           this.update(id, {
             state: "error",
             error:
@@ -250,6 +311,7 @@ export class ReviewStore {
       result: verifyLabel(r.text, r.application, r.confidence, confirmed),
       decision: null,
       reviewedAt: undefined,
+      manualReview: undefined,
     });
   }
   editApplication(id: string, application: ApplicationFields) {
@@ -262,6 +324,7 @@ export class ReviewStore {
         : undefined,
       decision: null,
       reviewedAt: undefined,
+      manualReview: undefined,
     });
   }
   decide(id: string, decision: Decision, notes = "") {
@@ -269,7 +332,33 @@ export class ReviewStore {
       decision,
       notes,
       reviewedAt: decision ? new Date().toISOString() : undefined,
+      manualReview: undefined,
     });
+  }
+  /** Records an explicit human assessment while preserving every automated finding. */
+  approveManually(id: string, reason: string): boolean {
+    const record = this.records().find((r) => r.id === id);
+    if (
+      !record ||
+      record.state !== "ready" ||
+      !record.imageUrl ||
+      !record.result ||
+      !record.boldConfirmed ||
+      !!record.decision ||
+      !reason.trim()
+    )
+      return false;
+    this.update(id, {
+      decision: "approved",
+      notes: reason.trim(),
+      reviewedAt: new Date().toISOString(),
+      manualReview: {
+        reason: reason.trim(),
+        confirmedAllFields: true,
+        automatedStatus: record.result.status,
+      },
+    });
+    return true;
   }
   resetSamples() {
     const ids = new Set(SAMPLE_LABELS.map((s) => s.id));
@@ -289,6 +378,7 @@ export class ReviewStore {
     for (const r of this.records())
       if (!r.sample && r.imageUrl) URL.revokeObjectURL(r.imageUrl);
     this.files.clear();
+    this.artworkVersions.clear();
     this.records.set(initialSamples());
     this.activeId.set(SAMPLE_LABELS[0].id);
     this.save();

@@ -318,6 +318,12 @@
                       >Upload the label again to visually review it. Your
                       extracted text is saved.</span
                     >
+                    @if(!r.sample){<button
+                      class="button secondary"
+                      (click)="chooseReplacement()"
+                    >
+                      Restore artwork</button
+                    >}
                   </div>
                   }
                 </div>
@@ -340,6 +346,12 @@
                   >{{r.sample ? 'Demo observations · not live OCR' : 'Processed
                   privately on your device'}}
                 </div>
+                @if(!r.sample && r.imageUrl && r.state === 'ready'){<button
+                  class="text-link replace-artwork"
+                  (click)="chooseReplacement()"
+                >
+                  <p-icon name="refresh" [size]="13" />Replace artwork</button
+                >}
               </div>
               <div class="checks-column">
                 <div class="panel-caption">
@@ -378,9 +390,9 @@
                   <p>{{r.error}}</p>
                   <button
                     class="button secondary"
-                    (click)="startUpload('single')"
+                    (click)="chooseReplacement()"
                   >
-                    Upload another image
+                    Replace artwork
                   </button>
                 </div>
                 } @if(r.result) {
@@ -403,6 +415,10 @@
                     <span>{{c.expected}}</span
                     ><span [title]="c.detail">{{c.observed}}</span>
                   </div>
+                  @if(c.status === 'review' && (c.key === 'abv' || c.key ===
+                  'country')){
+                  <p class="field-review-detail">{{c.detail}}</p>
+                  }
                 </div>
                 }
                 <div
@@ -457,7 +473,21 @@
                 >
               </div>
             </div>
-            } } @else if(tab() === 'application') {
+            @if(needsManualReview() && !r.decision){
+            <div class="manual-review-option">
+              <p>
+                OCR can misread a correct label. Inspect every field and any
+                applicable exception before making a manual decision.
+              </p>
+              <button
+                class="text-link"
+                [disabled]="!canApproveManually()"
+                (click)="openManualReview()"
+              >
+                Record manual approval<p-icon name="chevron" [size]="13" />
+              </button>
+            </div>
+            } } } @else if(tab() === 'application') {
             <div class="application-body">
               <div class="tab-intro">
                 <h3>The application is your source of truth.</h3>
@@ -525,7 +555,8 @@
                   ><p-icon name="check" [size]="14" /></span
                 ><span
                   ><strong
-                    >{{r.decision === 'approved' ? 'Review approved' : 'Changes
+                    >{{r.decision === 'approved' ? (r.manualReview ? 'Manually
+                    approved' : 'Review approved') : 'Changes
                     requested'}}</strong
                   ><small
                     >{{r.reviewedAt | date:'MMM d, h:mm a'}}{{r.notes ? ' · ' +
@@ -544,7 +575,7 @@
               <div class="decision-actions">
                 <button
                   class="button secondary"
-                  [disabled]="r.state !== 'ready'"
+                  [disabled]="r.state !== 'ready' && r.state !== 'error'"
                   (click)="openReturn()"
                 >
                   Request changes</button
@@ -730,6 +761,70 @@
     <span>Check warning weight, type size, and legibility.</span
     ><button class="button secondary" (click)="downloadLabel()">
       <p-icon name="download" [size]="16" />Download PNG
+    </button>
+  </div>
+</dialog>
+<input
+  #artworkInput
+  id="replacement-artwork"
+  type="file"
+  accept="image/png,image/jpeg,image/webp"
+  hidden
+  (change)="replaceArtwork($event)"
+/>
+<dialog
+  #manualDialog
+  class="modal small-modal"
+  aria-label="Record manual approval"
+>
+  <div class="modal-heading">
+    <span class="eyebrow">YOUR REVIEWER JUDGMENT</span
+    ><button
+      class="icon-button"
+      aria-label="Close manual approval"
+      (click)="manualDialog.close()"
+    >
+      <p-icon name="close" />
+    </button>
+  </div>
+  <h2>Record what you verified.</h2>
+  <p class="modal-description">
+    Approve only after checking the original artwork. Any automated flags stay
+    in the report alongside your reason. This does not change the OCR reading or
+    submit an official TTB approval.
+  </p>
+  <label class="textarea-label" for="manual-review-reason"
+    >Reason for manual approval <span>Required</span></label
+  >
+  <textarea
+    id="manual-review-reason"
+    rows="4"
+    maxlength="2000"
+    placeholder="Explain the OCR error you checked against the artwork, or the labeling exception you independently verified."
+    [ngModel]="manualReason()"
+    (ngModelChange)="manualReason.set($event)"
+  ></textarea>
+  <label class="manual-attestation"
+    ><input
+      type="checkbox"
+      [ngModel]="manualAllFields()"
+      (ngModelChange)="manualAllFields.set($event)"
+    />I verified every application field, the complete warning statement and its
+    formatting, and any applicable labeling exception against the
+    artwork.</label
+  >
+  @if(manualError()){
+  <p class="form-error" role="alert">{{manualError()}}</p>
+  }
+  <div class="modal-footer">
+    <button class="button secondary" (click)="manualDialog.close()">
+      Cancel</button
+    ><button
+      class="button primary"
+      [disabled]="!manualAllFields()"
+      (click)="approveManually()"
+    >
+      Save manual approval<p-icon name="check" [size]="16" />
     </button>
   </div>
 </dialog>

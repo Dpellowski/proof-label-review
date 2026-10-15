@@ -20,6 +20,9 @@
             "allowedCommonJsDependencies": ["tesseract.js", "papaparse"]
           },
           "configurations": {
+            "github-pages": {
+              "outputPath": { "base": "dist-pages", "browser": "" }
+            },
             "production": {
               "outputHashing": "all",
               "budgets": [

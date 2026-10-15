@@ -1,0 +1,1365 @@
+{
+  "fixture": "old-tom-bourbon.png",
+  "note": "Actual sample PNG uploaded through application UI. Synthetic flat artwork, not photographed bottle. Cold contexts have empty browser storage and no existing OCR worker; warm trials reuse one page and worker. Loopback networking and warm OS filesystem cache.",
+  "cold": [
+    {
+      "name": "cold-1-old-tom.png",
+      "submissionToReadyMs": 1122,
+      "dialogOpenToReadyMs": 1299,
+      "durationMs": 1051,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-2-old-tom.png",
+      "submissionToReadyMs": 1169,
+      "dialogOpenToReadyMs": 1266,
+      "durationMs": 1108,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-3-old-tom.png",
+      "submissionToReadyMs": 1070,
+      "dialogOpenToReadyMs": 1181,
+      "durationMs": 1028,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-4-old-tom.png",
+      "submissionToReadyMs": 969,
+      "dialogOpenToReadyMs": 1137,
+      "durationMs": 918,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-5-old-tom.png",
+      "submissionToReadyMs": 1133,
+      "dialogOpenToReadyMs": 1230,
+      "durationMs": 1081,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-6-old-tom.png",
+      "submissionToReadyMs": 1075,
+      "dialogOpenToReadyMs": 1196,
+      "durationMs": 1015,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-7-old-tom.png",
+      "submissionToReadyMs": 1047,
+      "dialogOpenToReadyMs": 1165,
+      "durationMs": 942,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-8-old-tom.png",
+      "submissionToReadyMs": 971,
+      "dialogOpenToReadyMs": 1066,
+      "durationMs": 903,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-9-old-tom.png",
+      "submissionToReadyMs": 961,
+      "dialogOpenToReadyMs": 1053,
+      "durationMs": 897,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "cold-10-old-tom.png",
+      "submissionToReadyMs": 1111,
+      "dialogOpenToReadyMs": 1205,
+      "durationMs": 1034,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    }
+  ],
+  "warm": [
+    {
+      "name": "warm-1-old-tom.png",
+      "submissionToReadyMs": 692,
+      "dialogOpenToReadyMs": 777,
+      "durationMs": 637,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-2-old-tom.png",
+      "submissionToReadyMs": 695,
+      "dialogOpenToReadyMs": 768,
+      "durationMs": 623,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-3-old-tom.png",
+      "submissionToReadyMs": 708,
+      "dialogOpenToReadyMs": 804,
+      "durationMs": 630,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-4-old-tom.png",
+      "submissionToReadyMs": 692,
+      "dialogOpenToReadyMs": 778,
+      "durationMs": 635,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-5-old-tom.png",
+      "submissionToReadyMs": 692,
+      "dialogOpenToReadyMs": 768,
+      "durationMs": 621,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-6-old-tom.png",
+      "submissionToReadyMs": 691,
+      "dialogOpenToReadyMs": 779,
+      "durationMs": 626,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-7-old-tom.png",
+      "submissionToReadyMs": 696,
+      "dialogOpenToReadyMs": 787,
+      "durationMs": 633,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-8-old-tom.png",
+      "submissionToReadyMs": 694,
+      "dialogOpenToReadyMs": 767,
+      "durationMs": 623,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-9-old-tom.png",
+      "submissionToReadyMs": 692,
+      "dialogOpenToReadyMs": 782,
+      "durationMs": 625,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-10-old-tom.png",
+      "submissionToReadyMs": 698,
+      "dialogOpenToReadyMs": 785,
+      "durationMs": 638,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-11-old-tom.png",
+      "submissionToReadyMs": 694,
+      "dialogOpenToReadyMs": 768,
+      "durationMs": 654,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-12-old-tom.png",
+      "submissionToReadyMs": 691,
+      "dialogOpenToReadyMs": 779,
+      "durationMs": 620,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-13-old-tom.png",
+      "submissionToReadyMs": 693,
+      "dialogOpenToReadyMs": 786,
+      "durationMs": 628,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-14-old-tom.png",
+      "submissionToReadyMs": 694,
+      "dialogOpenToReadyMs": 781,
+      "durationMs": 628,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-15-old-tom.png",
+      "submissionToReadyMs": 691,
+      "dialogOpenToReadyMs": 782,
+      "durationMs": 636,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-16-old-tom.png",
+      "submissionToReadyMs": 696,
+      "dialogOpenToReadyMs": 773,
+      "durationMs": 623,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-17-old-tom.png",
+      "submissionToReadyMs": 693,
+      "dialogOpenToReadyMs": 778,
+      "durationMs": 636,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-18-old-tom.png",
+      "submissionToReadyMs": 697,
+      "dialogOpenToReadyMs": 773,
+      "durationMs": 653,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-19-old-tom.png",
+      "submissionToReadyMs": 693,
+      "dialogOpenToReadyMs": 779,
+      "durationMs": 627,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    },
+    {
+      "name": "warm-20-old-tom.png",
+      "submissionToReadyMs": 697,
+      "dialogOpenToReadyMs": 785,
+      "durationMs": 620,
+      "confidence": 95,
+      "textCharacters": 458,
+      "fieldResults": [
+        {
+          "key": "brand",
+          "status": "match"
+        },
+        {
+          "key": "classType",
+          "status": "match"
+        },
+        {
+          "key": "abv",
+          "status": "match"
+        },
+        {
+          "key": "netContents",
+          "status": "match"
+        },
+        {
+          "key": "producer",
+          "status": "match"
+        },
+        {
+          "key": "warning",
+          "status": "match"
+        },
+        {
+          "key": "warningHeader",
+          "status": "match"
+        },
+        {
+          "key": "warningTypography",
+          "status": "review"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "logicalProcessors": 32,
+    "deviceMemoryGiB": 32
+  },
+  "warmup": {
+    "name": "warmup-old-tom.png",
+    "submissionToReadyMs": 994,
+    "dialogOpenToReadyMs": 1093,
+    "durationMs": 925,
+    "confidence": 95,
+    "textCharacters": 458,
+    "fieldResults": [
+      {
+        "key": "brand",
+        "status": "match"
+      },
+      {
+        "key": "classType",
+        "status": "match"
+      },
+      {
+        "key": "abv",
+        "status": "match"
+      },
+      {
+        "key": "netContents",
+        "status": "match"
+      },
+      {
+        "key": "producer",
+        "status": "match"
+      },
+      {
+        "key": "warning",
+        "status": "match"
+      },
+      {
+        "key": "warningHeader",
+        "status": "match"
+      },
+      {
+        "key": "warningTypography",
+        "status": "review"
+      }
+    ]
+  },
+  "summary": {
+    "cold": {
+      "ocrMs": {
+        "count": 10,
+        "min": 897,
+        "p50": 1015,
+        "p95": 1108,
+        "max": 1108
+      },
+      "submissionToReadyMs": {
+        "count": 10,
+        "min": 961,
+        "p50": 1070,
+        "p95": 1169,
+        "max": 1169
+      },
+      "dialogOpenToReadyMs": {
+        "count": 10,
+        "min": 1053,
+        "p50": 1181,
+        "p95": 1299,
+        "max": 1299
+      }
+    },
+    "warm": {
+      "ocrMs": {
+        "count": 20,
+        "min": 620,
+        "p50": 628,
+        "p95": 653,
+        "max": 654
+      },
+      "submissionToReadyMs": {
+        "count": 20,
+        "min": 691,
+        "p50": 693,
+        "p95": 698,
+        "max": 708
+      },
+      "dialogOpenToReadyMs": {
+        "count": 20,
+        "min": 767,
+        "p50": 779,
+        "p95": 787,
+        "max": 804
+      }
+    }
+  }
+}

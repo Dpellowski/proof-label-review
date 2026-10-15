@@ -13,6 +13,7 @@
     "prestart": "node scripts/copy-ocr-assets.mjs",
     "predev": "node scripts/copy-ocr-assets.mjs",
     "build": "node scripts/copy-ocr-assets.mjs && ng build",
+    "build:pages": "node scripts/build-github-pages.mjs",
     "preview": "node scripts/serve.mjs",
     "test": "vitest run",
     "typecheck": "ng build --configuration development"
