@@ -2,6 +2,14 @@
 
 Proof is an Angular 21 static application. It has no backend deployment, API keys, database migrations, or paid OCR service. Build once and serve `dist/` over HTTPS, including the `ocr/` and `samples/` directories.
 
+## Published submission
+
+- **Public application:** https://dpellowski.github.io/proof-label-review/
+- **Public source repository:** https://github.com/Dpellowski/proof-label-review
+- **Build and deployment workflow:** https://github.com/Dpellowski/proof-label-review/actions/workflows/pages.yml
+
+The GitHub Pages deployment was verified on October 15, 2026. It returned HTTP 200 without authentication and passed all 27 browser workflow checks, including real single/batch OCR, review decisions, image recovery, and mobile navigation. The original workflow run also observed zero failed HTTP responses or external-origin requests; OCR assets came from `/proof-label-review/ocr/`.
+
 ## GitHub Pages: free public submission
 
 GitHub Pages supports public repositories on GitHub Free. A public repository can provide both assignment deliverables: source reviewers can inspect and a public working application. See [GitHub's custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
@@ -16,7 +24,7 @@ The ready-to-use workflow is [`.github/workflows/pages.yml`](../.github/workflow
 
 `npm run build:pages` uses `scripts/build-github-pages.mjs` to package OCR assets and build Angular into `dist-pages/`. The workflow reads Pages' `base_path` so project paths, user sites, and configured custom domains work correctly. A local build defaults to `/proof-label-review/`; set `PAGES_BASE_PATH` to test a different prefix. `node scripts/smoke-pages.mjs` starts a temporary server and exercises the actual built app plus real OCR under the configured subpath, including missing-asset checks. The normal `npm run build` still emits `dist/` with a root base path for other hosts.
 
-Publishing requires a connected GitHub account or an authenticated GitHub CLI with repository and Pages access. The workflow and artifact can be prepared and tested without account access, but this alone does not create a repository or a public site. The existing Sites preview remains private unless its audience is explicitly changed.
+Publishing updates requires a connected GitHub account or an authenticated GitHub CLI with repository and Pages access. This project's public repository and Pages site are already configured and linked above. The earlier Sites preview is separate and remains private.
 
 ## Azure Static Web Apps
 

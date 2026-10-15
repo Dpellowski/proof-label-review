@@ -1,0 +1,233 @@
+{
+  "verifiedDate": "2026-10-15",
+  "applicationUrl": "https://dpellowski.github.io/proof-label-review/",
+  "repositoryUrl": "https://github.com/Dpellowski/proof-label-review",
+  "auditedSourceCommit": "d5d94b19ae8d7a7e4b0598c80600c2434a3a23da",
+  "successfulDeploymentRun": "https://github.com/Dpellowski/proof-label-review/actions/runs/38786529053",
+  "publicWithoutAuthentication": true,
+  "httpStatus": 200,
+  "originalWorkflowReport": {
+    "baseUrl": "https://dpellowski.github.io/proof-label-review/",
+    "browser": "msedge",
+    "findings": [
+      {
+        "name": "Approval is gated by the visual typography confirmation",
+        "result": "pass"
+      },
+      {
+        "name": "Approval persists across reload and can be reopened from history",
+        "result": "pass"
+      },
+      {
+        "name": "An ABV mismatch remains blocked after confirming typography",
+        "result": "pass"
+      },
+      {
+        "name": "Change requests require notes, persist, and reopen",
+        "result": "pass"
+      },
+      {
+        "name": "Single image upload performs real OCR and saves measured output",
+        "result": "pass",
+        "detail": {
+          "confidence": 95,
+          "durationMs": 2567,
+          "status": "review",
+          "characters": 458
+        }
+      },
+      {
+        "name": "Batch CSV maps all six PNG filenames to their application data",
+        "result": "pass",
+        "detail": [
+          {
+            "file": "old-tom-bourbon.png",
+            "durationMs": 902,
+            "confidence": 95,
+            "status": "review",
+            "mismatches": []
+          },
+          {
+            "file": "stones-throw-gin.png",
+            "durationMs": 881,
+            "confidence": 95,
+            "status": "review",
+            "mismatches": []
+          },
+          {
+            "file": "maison-lucette-wine.png",
+            "durationMs": 600,
+            "confidence": 94,
+            "status": "flagged",
+            "mismatches": ["abv"]
+          },
+          {
+            "file": "pacific-standard-beer.png",
+            "durationMs": 332,
+            "confidence": 95,
+            "status": "flagged",
+            "mismatches": ["warning", "warningHeader"]
+          },
+          {
+            "file": "amber-field-wine.png",
+            "durationMs": 616,
+            "confidence": 91,
+            "status": "review",
+            "mismatches": []
+          },
+          {
+            "file": "costa-azul-tequila.png",
+            "durationMs": 573,
+            "confidence": 94,
+            "status": "flagged",
+            "mismatches": ["producer", "country"]
+          }
+        ]
+      },
+      {
+        "name": "Clearing local history removes uploads and decisions",
+        "result": "pass"
+      },
+      {
+        "name": "Desktop landmarks, form labels, and keyboard focus are accessible",
+        "result": "pass"
+      },
+      {
+        "name": "Mobile page fits the viewport and navigation starts closed",
+        "result": "pass",
+        "detail": {
+          "width": 390,
+          "scroll": 390,
+          "sidebarRight": 0
+        }
+      },
+      {
+        "name": "Browser console has no uncaught application errors",
+        "result": "pass"
+      }
+    ],
+    "errors": []
+  },
+  "extendedUseCaseReport": {
+    "baseUrl": "https://dpellowski.github.io/proof-label-review/",
+    "browser": "msedge",
+    "fixtureDisclosure": "The manual-review scenario seeds an OCR error explicitly; other uploaded-image cases use the real OCR engine.",
+    "findings": [
+      {
+        "name": "Case and apostrophe differences match without a manual override",
+        "result": "pass"
+      },
+      {
+        "name": "JPEG artwork is accepted and recognized through the real upload workflow",
+        "result": "pass",
+        "detail": {
+          "format": "JPEG",
+          "width": 1600,
+          "height": 2240,
+          "bytes": 350829,
+          "confidence": 95,
+          "durationMs": 1665,
+          "automatedStatus": "review"
+        }
+      },
+      {
+        "name": "WebP artwork is accepted and recognized through the real upload workflow",
+        "result": "pass",
+        "detail": {
+          "format": "WebP",
+          "width": 1600,
+          "height": 2240,
+          "bytes": 178112,
+          "confidence": 95,
+          "durationMs": 1347,
+          "automatedStatus": "review"
+        }
+      },
+      {
+        "name": "Rotated and dim artwork finishes with reviewable results or a recoverable image error",
+        "result": "pass",
+        "detail": {
+          "transformation": "8-degree rotation and 18% black overlay",
+          "state": "ready",
+          "confidence": 95,
+          "durationMs": 2132,
+          "automatedStatus": "review",
+          "decision": null
+        }
+      },
+      {
+        "name": "Corrupt artwork can be returned with a required reason and replaced on the same review",
+        "result": "pass",
+        "detail": {
+          "originalState": "error",
+          "replacementState": "ready",
+          "recordPreserved": true
+        }
+      },
+      {
+        "name": "A valid blank PNG is reported as unreadable and can request a clearer image",
+        "result": "pass",
+        "detail": {
+          "state": "error",
+          "confidence": 0,
+          "comparisonsCreated": false
+        }
+      },
+      {
+        "name": "Reloaded artwork can be restored without repeating application entry or retaining its old approval",
+        "result": "pass"
+      },
+      {
+        "name": "Explicit manual review records a reason and confirmation while preserving OCR flags in history and CSV",
+        "result": "pass",
+        "detail": {
+          "fixture": "seeded OCR error; actual artwork unchanged",
+          "automatedStatus": "flagged",
+          "manualApprovalPersisted": true
+        }
+      },
+      {
+        "name": "Unsupported image formats give a recoverable upload error",
+        "result": "pass"
+      },
+      {
+        "name": "Duplicate image filenames are rejected before batch processing",
+        "result": "pass"
+      },
+      {
+        "name": "A 301-image batch is rejected with the documented 300-image limit",
+        "result": "pass"
+      },
+      {
+        "name": "Batch CSV without a filename column is rejected",
+        "result": "pass"
+      },
+      {
+        "name": "Every uploaded image requires a matching CSV filename",
+        "result": "pass"
+      },
+      {
+        "name": "Imported batches require a nonempty country of origin",
+        "result": "pass"
+      },
+      {
+        "name": "Batch imported flags must explicitly be true or false",
+        "result": "pass"
+      },
+      {
+        "name": "Duplicate application filenames are rejected in the CSV",
+        "result": "pass"
+      },
+      {
+        "name": "Extra CSV application rows cannot silently lose their labels",
+        "result": "pass"
+      }
+    ]
+  },
+  "originalWorkflowNetworkObservation": {
+    "requests": 46,
+    "externalRequests": 0,
+    "failedHttpResponses": 0,
+    "ocrAssetsSamePagesOrigin": true
+  }
+}

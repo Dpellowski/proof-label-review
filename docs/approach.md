@@ -75,7 +75,7 @@ For a reproducible evaluation:
 6. Score OCR and comparison correctness alongside speed: transcription errors, missed required fields, false matches, false flags, low-confidence reviews, and warning/header error detection. Review every false match; an unreadable label should not be optimized into an unjustified pass.
 7. Repeat the deployed-host test with third-party network requests blocked. Confirm that worker, WASM, and trained-data requests remain on the site's origin and that an OCR failure produces an actionable error.
 
-The implementation has a 45-second initialization deadline and a 20-second recognition deadline. These protect the interface from indefinitely waiting; they are not evidence of five-second performance. Illustrative smoke observations are recorded in [performance evidence](performance.md); representative p95 latency and 300-image throughput have not been measured.
+The implementation has a 45-second initialization deadline and a 20-second recognition deadline. These protect the interface from indefinitely waiting; they are not evidence of five-second performance. [Performance evidence](performance.md) records repeated clear-fixture latency and a real 300-image queue run. Representative p95 latency and throughput over diverse photographed labels, slow networks, and mobile hardware remain unmeasured.
 
 ## Validation
 

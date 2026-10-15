@@ -1,5 +1,9 @@
 # Proof — alcohol label review
 
+**Live application:** [dpellowski.github.io/proof-label-review](https://dpellowski.github.io/proof-label-review/)
+
+**Source repository:** [github.com/Dpellowski/proof-label-review](https://github.com/Dpellowski/proof-label-review)
+
 A deployable Angular application that compares alcohol label artwork with an application's declared fields. Reviewers can open a sample, upload a label for real OCR, inspect each comparison beside the artwork, confirm warning typography, and export review results. Multiple images and a CSV manifest support batch review.
 
 This is a standalone take-home prototype. A comparison result supports a reviewer's decision; it is not a TTB approval or a complete legal compliance assessment.
@@ -26,6 +30,8 @@ The production preview runs at `http://127.0.0.1:4173`. The complete website is 
 For browser workflow checks, keep `npm run preview` running in another terminal, then run `node scripts/smoke-app.mjs`. The script uses installed Microsoft Edge by default; set `PROOF_QA_BROWSER` to another Playwright browser channel when needed. `node scripts/smoke-ocr.mjs` separately tests real OCR, worker cancellation/recovery, and same-origin runtime assets using installed Chrome. The browser workflow suite covers approval, requested changes, persistence, actual single/batch OCR, local history clearing, keyboard focus, and mobile navigation.
 
 The use-case audit expanded the suite to 69 unit tests and a separate browser regression suite for unreadable images, restoration after refresh, explicit manual decisions, and invalid batches. Run `node scripts/check-use-cases.mjs` with the preview running. The original ten workflow checks remain in `scripts/smoke-app.mjs`. See [the complete assignment checklist](docs/use-cases.md) for coverage and measured performance. These are prototype checks, not a full accessibility certification or representative OCR accuracy study.
+
+All 27 browser workflow checks also passed against the public GitHub Pages deployment in fresh, unauthenticated browser contexts, including real OCR, six-label batch processing, artwork restoration, manual review, and mobile navigation. OCR assets loaded from the Pages origin without external API calls.
 
 Browser scripts use isolated browser contexts and preserve your normal local workspace. Generated screenshots and reports are not required for deployment.
 
@@ -65,7 +71,7 @@ The downloadable [sample manifest](public/samples/batch-template.csv) matches th
 
 See [the deployment guide](docs/deployment.md) for GitHub Pages and Azure Static Web Apps settings. **GitHub Pages is the prepared free deployment path for a public submission repository.** Its workflow tests and builds the app before deployment and handles the repository subpath used by project sites.
 
-`npm run build:pages` creates `dist-pages/` with `/proof-label-review/` as the default base path. In GitHub Actions the correct base path comes from Pages configuration and repository metadata. Run `node scripts/smoke-pages.mjs` after that build to exercise the actual Angular artifact and real OCR under its subpath. A GitHub account/repository with Pages enabled is needed to publish; no GitHub publication is claimed before that connection and deployment succeed.
+`npm run build:pages` creates `dist-pages/` with `/proof-label-review/` as the default base path. In GitHub Actions the correct base path comes from Pages configuration and repository metadata. Run `node scripts/smoke-pages.mjs` after that build to exercise the actual Angular artifact and real OCR under its subpath. The public app and repository are linked above; the [Pages workflow](https://github.com/Dpellowski/proof-label-review/actions/workflows/pages.yml) tests and publishes updates to `main` automatically.
 
 Run `npm ci` followed by `npm run build`, then publish the **contents of `dist/`** to an HTTPS static website host. The configured build output is `dist/`, with no additional `browser/` subdirectory. The repository requires no application server, database, API key, or paid model endpoint.
 
