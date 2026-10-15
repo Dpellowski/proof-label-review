@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1120" viewBox="0 0 800 1120" role="img" aria-labelledby="title">
+<title id="title">Old Tom Distillery bourbon — fictional sample label</title>
+<rect width="800" height="1120" fill="#f4efdf"/>
+<g font-family="Georgia, 'Times New Roman', serif" color="#293e34">
+  <rect x="30" y="30" width="740" height="1060" rx="2" fill="none" stroke="#9e7c45" stroke-width="2"/>
+  <rect x="42" y="42" width="716" height="1036" rx="2" fill="none" stroke="#9e7c45"/>
+  <text x="400" y="106" fill="#84683e" text-anchor="middle" font-size="23" letter-spacing="5">EST. 1891</text>
+  <g transform="translate(400 238)" fill="none" stroke="#a18450" stroke-width="2.4">
+    <circle r="84"/><circle r="72" stroke-width="1"/>
+    <path d="M-40 54C-66 12-54-26-24-52M40 54C66 12 54-26 24-52"/>
+    <path d="M-43 34l-27-11m20-12-24-16m23-8-16-21m22 2-8-24M43 34l27-11M50 11l24-16M51-13l16-21M45-32l8-24"/>
+    <path d="M-26-31H26M0-31V45M-15 45H15" stroke-width="6"/>
+    <path d="M-104 0h-62m270 0h62" stroke-width="1"/>
+    <path d="M-180 0l8-5 8 5-8 5zm344 0 8-5 8 5-8 5z" fill="#a18450"/>
+  </g>
+  <text x="400" y="419" fill="#293e34" text-anchor="middle" font-size="86" letter-spacing="3">OLD TOM</text>
+  <text x="400" y="468" fill="#293e34" text-anchor="middle" font-size="31" letter-spacing="12">DISTILLERY</text>
+  <path d="M150 510H650" stroke="#9e7c45"/>
+  <text x="400" y="565" fill="#293e34" text-anchor="middle" font-size="25" letter-spacing="4">KENTUCKY STRAIGHT</text>
+  <text x="400" y="612" fill="#293e34" text-anchor="middle" font-size="36" letter-spacing="1.5">BOURBON WHISKEY</text>
+  <text x="400" y="659" fill="#84683e" text-anchor="middle" font-size="16" font-family="Arial, sans-serif" letter-spacing="3">SMALL BATCH · SLOW AGED</text>
+  <text x="400" y="720" fill="#293e34" text-anchor="middle" font-size="25" font-family="Arial, Helvetica, sans-serif">45% Alc./Vol. (90 Proof)</text>
+  <text x="400" y="757" fill="#293e34" text-anchor="middle" font-size="24" >750 mL</text>
+  <text x="400" y="804" fill="#293e34" text-anchor="middle" font-size="17" font-family="Arial, sans-serif" letter-spacing="2">DISTILLED AND BOTTLED BY</text><text x="400" y="834" fill="#293e34" text-anchor="middle" font-size="21" font-family="Arial, sans-serif">Old Tom Distillery, Bardstown, KY</text>
+  <path d="M86 865H714" stroke="#b7a784"/>
+  <g fill="#283b32" font-family="Arial, Helvetica, sans-serif" font-size="18">
+  <text x="86" y="900" font-weight="700">GOVERNMENT WARNING:</text>
+  <text x="86" y="928">(1) According to the Surgeon General, women should not drink</text>
+  <text x="86" y="953">alcoholic beverages during pregnancy because of the risk of</text>
+  <text x="86" y="978">birth defects. (2) Consumption of alcoholic beverages impairs</text>
+  <text x="86" y="1003">your ability to drive a car or operate machinery, and may</text>
+  <text x="86" y="1028">cause health problems.</text>
+</g>
+</g>
+</svg>

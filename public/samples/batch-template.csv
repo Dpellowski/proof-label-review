@@ -1,0 +1,7 @@
+filename,brand,beverage,classType,abv,netContents,producer,country,imported
+old-tom-bourbon.png,Old Tom Distillery,spirits,Kentucky Straight Bourbon Whiskey,45%,750 mL,"Old Tom Distillery, Bardstown, KY",United States,false
+stones-throw-gin.png,Stone’s Throw,spirits,London Dry Gin,42%,750 mL,"Stone’s Throw Distilling, Portland, OR",United States,false
+maison-lucette-wine.png,Maison Lucette,wine,Sauvignon Blanc,13%,750 mL,"Maison Lucette, Bordeaux, France",France,true
+pacific-standard-beer.png,Pacific Standard,beer,West Coast Pale Ale,5.2%,355 mL,"Pacific Standard Brewing, San Diego, CA",United States,false
+amber-field-wine.png,Amber Field,wine,Chardonnay,12%,750 mL,"Amber Field Cellars, Sonoma, CA",United States,false
+costa-azul-tequila.png,Costa Azul,spirits,Tequila Blanco,40%,750 mL,"Destilería Costa Azul, Jalisco",Mexico,true

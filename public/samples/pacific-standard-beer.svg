@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1120" viewBox="0 0 800 1120" role="img" aria-labelledby="title">
+<title id="title">Pacific Standard pale ale — fictional sample label</title>
+<rect width="800" height="1120" fill="#f0e8d4"/>
+<g font-family="Georgia, 'Times New Roman', serif" color="#214e54">
+  <rect x="28" y="28" width="744" height="1064" rx="4" fill="none" stroke="#214e54" stroke-width="3"/>
+  <circle cx="400" cy="254" r="125" fill="#df8b4e"/>
+  <path d="M70 280Q180 225 290 280T510 280T730 280V355H70Z" fill="#89ada3"/>
+  <path d="M70 316Q180 261 290 316T510 316T730 316V390H70Z" fill="#447b7d"/>
+  <path d="M70 351Q180 296 290 351T510 351T730 351V426H70Z" fill="#214e54"/>
+  <path d="M111 174h80m-45-32v65M640 202h42m-21-21v42" stroke="#214e54" stroke-width="2"/>
+  <text x="400" y="544" fill="#214e54" text-anchor="middle" font-size="92" font-family="Arial, sans-serif" font-weight="900" letter-spacing="-3">PACIFIC</text>
+  <text x="400" y="633" fill="#214e54" text-anchor="middle" font-size="87" font-family="Arial, sans-serif" font-weight="900" letter-spacing="-3">STANDARD</text>
+  <text x="400" y="698" fill="#214e54" text-anchor="middle" font-size="27" font-family="Arial, sans-serif" letter-spacing="3">WEST COAST PALE ALE</text>
+  <text x="400" y="743" fill="#447b7d" text-anchor="middle" font-size="17" font-family="Arial, sans-serif" letter-spacing="3">BRIGHT HOPS. OPEN WATER.</text>
+  <path d="M160 788H640" stroke="#8eaaa1"/>
+  <text x="400" y="847" fill="#214e54" text-anchor="middle" font-size="29" >5.2% Alc./Vol.</text>
+  <text x="400" y="890" fill="#214e54" text-anchor="middle" font-size="24" >355 mL</text>
+  <text x="400" y="967" fill="#214e54" text-anchor="middle" font-size="17" font-family="Arial, sans-serif" letter-spacing="2">BREWED AND CANNED BY</text>
+  <text x="400" y="1001" fill="#214e54" text-anchor="middle" font-size="21" font-family="Arial, sans-serif">Pacific Standard Brewing, San Diego, CA</text>
+</g>
+</svg>

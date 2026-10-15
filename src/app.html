@@ -1,0 +1,807 @@
+<div class="app-shell">
+  <aside id="main-sidebar" class="sidebar" [class.mobile-open]="mobileNav()">
+    <a class="brand" href="./" aria-label="Proof home"
+      ><span class="brand-mark"><p-icon name="layers" [size]="25" /></span
+      ><span>proof<span class="brand-period">.</span></span></a
+    >
+    <div class="workspace-switch">
+      <span class="workspace-avatar">P</span
+      ><span
+        ><strong>Label compliance</strong
+        ><small>Prototype workspace</small></span
+      ><p-icon name="down" [size]="14" />
+    </div>
+    <p class="nav-caption">WORKSPACE</p>
+    <nav aria-label="Main navigation">
+      <button [class.active]="nav() === 'queue'" (click)="go('queue')">
+        <p-icon name="layers" /><span>Review queue</span
+        ><span class="nav-count">{{pending()}}</span>
+      </button>
+      <button [class.active]="nav() === 'history'" (click)="go('history')">
+        <p-icon name="clock" /><span>Review history</span>
+      </button>
+      <button [class.active]="nav() === 'guide'" (click)="go('guide')">
+        <p-icon name="book" /><span>Review guide</span
+        ><span class="nav-dot"></span>
+      </button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="privacy-card">
+        <span class="privacy-icon"><p-icon name="shield" [size]="23" /></span
+        ><strong>Your labels stay yours.</strong>
+        <p>Private, on-device processing.<br />No uploads. No API keys.</p>
+        <span class="tiny-label"
+          ><span class="live-dot"></span> BUILT FOR PEACE OF MIND</span
+        >
+      </div>
+      <div class="reviewer">
+        <span class="reviewer-avatar">CR</span>
+        <div>
+          <strong>Compliance reviewer</strong><small>Local workspace</small>
+        </div>
+        <p-icon name="lock" [size]="15" />
+      </div>
+    </div>
+  </aside>
+  @if (mobileNav()) {<button
+    class="nav-backdrop"
+    aria-label="Close navigation"
+    (click)="mobileNav.set(false)"
+  ></button
+  >}
+  <div class="main-shell">
+    <header class="topbar">
+      <div class="breadcrumb">
+        <button
+          class="icon-button mobile-menu"
+          aria-label="Open navigation"
+          aria-controls="main-sidebar"
+          [attr.aria-expanded]="mobileNav()"
+          (click)="mobileNav.set(!mobileNav())"
+        >
+          <p-icon name="menu" /></button
+        ><span>Workspace</span><p-icon name="chevron" [size]="12" /><strong
+          >{{nav() === 'history' ? 'Review history' : nav() === 'guide' ?
+          'Review guide' : 'Label review'}}</strong
+        >
+      </div>
+      <div class="topbar-meta">
+        <span class="local-badge"
+          ><span class="live-dot"></span> Local workspace</span
+        ><span class="topbar-date">{{today | date:'MMM d, yyyy'}}</span>
+      </div>
+    </header>
+    <main>
+      @if(nav() !== 'guide') {
+      <section class="page-heading">
+        <div>
+          <div class="eyebrow">A LITTLE CLARITY GOES A LONG WAY</div>
+          <h1>
+            {{nav() === 'history' ? 'A record of every review.' : 'Label review,
+            made clear.'}}
+          </h1>
+          <p>
+            {{nav() === 'history' ? 'Your decisions, notes, and the details
+            behind them.' : 'Less routine checking. More confidence in every
+            decision.'}}
+          </p>
+        </div>
+        <div class="heading-actions">
+          <button class="button secondary" (click)="startUpload('batch')">
+            <p-icon name="layers" [size]="17" />Batch upload</button
+          ><button class="button primary" (click)="startUpload('single')">
+            <p-icon name="plus" [size]="18" />New verification
+          </button>
+        </div>
+      </section>
+      <section class="metrics" aria-label="Workspace statistics">
+        <button class="metric" (click)="filter.set('all')">
+          <span class="metric-label"
+            >Labels in workspace<p-icon name="layers" [size]="17" /></span
+          ><span class="metric-number">{{total() | number}}</span
+          ><span class="metric-note">A clear view of your queue</span>
+        </button>
+        <button class="metric" (click)="filter.set('all')">
+          <span class="metric-label"
+            >Text checks match<span class="mini-icon green"
+              ><p-icon name="check" [size]="14" /></span></span
+          ><span class="metric-number"
+            >{{textMatched() | number}}<span class="metric-unit"
+              >/ {{total()}}</span
+            ></span
+          ><span class="metric-note"
+            ><span class="green-text">Application details aligned</span></span
+          >
+        </button>
+        <button class="metric" (click)="filter.set('attention')">
+          <span class="metric-label"
+            >Flagged for attention<span class="mini-icon amber"
+              ><p-icon name="flag" [size]="13" /></span></span
+          ><span class="metric-number">{{flagged() | number}}</span
+          ><span class="metric-note">A closer look makes the difference</span>
+        </button>
+        <button class="metric" (click)="filter.set('reviewed')">
+          <span class="metric-label"
+            >Reviews completed<p-icon name="shield" [size]="17" /></span
+          ><span class="metric-number">{{reviewed() | number}}</span
+          ><span class="metric-note">Every decision made by you</span>
+        </button>
+      </section>
+      @if(demoBanner()) {
+      <div class="demo-banner">
+        <span class="banner-icon"><p-icon name="sparkles" [size]="20" /></span>
+        <p>
+          <strong>Your first review is ready.</strong> Explore six sample
+          labels, or upload your own to get started.
+        </p>
+        <button class="text-link" (click)="store.resetSamples()">
+          Reset samples<p-icon name="refresh" [size]="13" /></button
+        ><button
+          class="icon-button"
+          aria-label="Dismiss sample introduction"
+          (click)="demoBanner.set(false)"
+        >
+          <p-icon name="close" [size]="15" />
+        </button>
+      </div>
+      }
+      <section class="queue-section">
+        <div class="section-heading">
+          <div class="section-title">
+            <h2>
+              {{nav() === 'history' ? 'Review history' : 'Your review queue'}}
+            </h2>
+            <span class="count-pill">{{visible().length}}</span
+            >@if(store.running()){<span class="processing-note"
+              ><span class="spinner"></span> Reading labels</span
+            >}
+          </div>
+          <div class="queue-tools">
+            <label class="search-box"
+              ><p-icon name="search" [size]="17" /><input
+                type="search"
+                aria-label="Search labels"
+                placeholder="Search labels…"
+                [ngModel]="search()"
+                (ngModelChange)="search.set($event)" /></label
+            ><select
+              class="beverage-select"
+              aria-label="Filter beverage type"
+              [ngModel]="beverage()"
+              (ngModelChange)="beverage.set($event)"
+            >
+              <option value="all">All beverages</option>
+              <option value="spirits">Spirits</option>
+              <option value="wine">Wine</option>
+              <option value="beer">Beer</option></select
+            ><button class="button quiet export-button" (click)="export()">
+              <p-icon name="download" [size]="16" />Export report
+            </button>
+          </div>
+        </div>
+        <div class="queue-tabs" aria-label="Filter reviews">
+          <button
+            [class.active]="filter() === 'all'"
+            (click)="filter.set('all')"
+          >
+            All labels<span
+              >{{nav() === 'history' ? reviewed() : total()}}</span
+            ></button
+          ><button
+            [class.active]="filter() === 'attention'"
+            (click)="filter.set('attention')"
+          >
+            Needs attention</button
+          ><button
+            [class.active]="filter() === 'reviewed'"
+            (click)="filter.set('reviewed')"
+          >
+            Reviewed
+          </button>
+        </div>
+        <div class="workbench">
+          <div class="review-list" aria-label="Label applications">
+            <div class="list-heading">
+              <span>LABEL APPLICATION</span><span>STATUS</span>
+            </div>
+            @for(r of visible(); track r.id) {
+            <button
+              class="review-item"
+              [class.selected]="active()?.id === r.id"
+              (click)="openRecord(r)"
+              [attr.aria-pressed]="active()?.id === r.id"
+            >
+              <span
+                class="label-thumb"
+                [class]="'label-thumb ' + r.application.beverage"
+                ><p-icon [name]="icon(r)" [size]="23" /></span
+              ><span class="review-item-info"
+                ><strong>{{r.application.brand}}</strong
+                ><span>{{r.application.classType}}</span
+                ><small
+                  >{{r.application.beverage === 'spirits' ? 'Distilled spirits'
+                  : r.application.beverage === 'wine' ? 'Wine' : 'Malt
+                  beverage'}}<span class="dot-separator">·</span>{{r.sample ?
+                  'Sample' : (r.createdAt | date:'h:mm a')}}</small
+                ></span
+              ><span class="review-item-status"
+                ><span [class]="'status-dot ' + tone(r)"></span
+                ><span>{{status(r)}}</span><p-icon name="chevron" [size]="13"
+              /></span>
+            </button>
+            } @empty {
+            <div class="empty-list">
+              <p-icon name="search" [size]="29" />
+              <h3>
+                {{nav() === 'history' ? 'Your decisions live here.' : 'No labels
+                found.'}}
+              </h3>
+              <p>
+                {{nav() === 'history' ? 'Complete a review to start your
+                history.' : 'Try another search or change your filters.'}}
+              </p>
+              <button
+                class="text-link"
+                (click)="search.set('');filter.set('all');beverage.set('all')"
+              >
+                Clear filters
+              </button>
+            </div>
+            }
+            <div class="list-bottom">
+              <p-icon name="shield" [size]="14" />AI checks the details. You
+              make the call.
+            </div>
+          </div>
+          @if(active(); as r) {
+          <article class="inspector" aria-label="Selected label details">
+            <div class="inspector-heading">
+              <div>
+                <div class="inspector-eyebrow">
+                  {{r.sample ? 'SAMPLE APPLICATION' : 'LABEL APPLICATION'}}<span>
+                    / {{r.id.slice(0,8).toUpperCase()}}</span
+                  >
+                </div>
+                <h2>{{r.application.brand}}</h2>
+              </div>
+              <span [class]="'status-badge ' + tone(r)"
+                ><span class="status-dot"></span>{{status(r)}}</span
+              >
+            </div>
+            <div class="detail-tabs">
+              <button
+                [class.active]="tab() === 'verification'"
+                (click)="tab.set('verification')"
+              >
+                <p-icon name="shield" [size]="15" />Verification</button
+              ><button
+                [class.active]="tab() === 'application'"
+                (click)="draft.set(r.application);tab.set('application')"
+              >
+                Application details</button
+              ><button
+                [class.active]="tab() === 'text'"
+                (click)="tab.set('text')"
+              >
+                Extracted text</button
+              ><button
+                class="icon-button detail-export"
+                aria-label="Export selected label review"
+                title="Export this label"
+                (click)="export(false)"
+              >
+                <p-icon name="download" [size]="16" />
+              </button>
+            </div>
+            @if(tab() === 'verification') {
+            <div class="verification-body">
+              <div class="artwork-column">
+                <div class="panel-caption">
+                  LABEL ARTWORK<button
+                    class="icon-button"
+                    aria-label="Enlarge label artwork"
+                    (click)="imageDialog.showModal()"
+                    [disabled]="!r.imageUrl"
+                  >
+                    <p-icon name="zoom" [size]="15" />
+                  </button>
+                </div>
+                <div class="label-stage">
+                  @if(r.imageUrl){<img
+                    [src]="r.imageUrl"
+                    [alt]="r.application.brand + ' label artwork'"
+                  />} @else {
+                  <div class="missing-artwork">
+                    <p-icon name="file" [size]="32" /><strong
+                      >Original image not retained</strong
+                    ><span
+                      >Upload the label again to visually review it. Your
+                      extracted text is saved.</span
+                    >
+                  </div>
+                  }
+                </div>
+                <div class="artwork-file">
+                  <p-icon name="file" [size]="13" /><span>{{r.filename}}</span
+                  ><button
+                    class="icon-button"
+                    aria-label="Download label as PNG"
+                    title="Download label as PNG"
+                    (click)="downloadLabel()"
+                    [disabled]="!r.imageUrl"
+                  >
+                    <p-icon name="download" [size]="14" />
+                  </button>
+                </div>
+                <div class="source-note">
+                  <span
+                    [class]="'source-dot ' + (r.sample ? 'sample' : '')"
+                  ></span
+                  >{{r.sample ? 'Demo observations · not live OCR' : 'Processed
+                  privately on your device'}}
+                </div>
+              </div>
+              <div class="checks-column">
+                <div class="panel-caption">
+                  <span>FIELD COMPARISON</span>@if(r.result){<span
+                    class="check-counter"
+                    >{{matchCount()}} / {{r.result.checks.length}} checks</span
+                  >}
+                </div>
+                @if(r.state === 'processing' || r.state === 'queued') {
+                <div class="reading-state">
+                  <span class="large-spinner"></span>
+                  <h3>
+                    {{r.state === 'queued' ? 'Your label is in line.' : 'Reading
+                    the fine print.'}}
+                  </h3>
+                  <p>
+                    {{r.progress < 0.1 ? 'Preparing the private OCR engine. The
+                    first label can take a little longer.' : 'Extracting label
+                    text and comparing the application details.'}}
+                  </p>
+                  <progress
+                    aria-label="Label OCR progress"
+                    [value]="r.progress"
+                    max="1"
+                  ></progress
+                  ><small
+                    >{{r.state === 'queued' ? 'Up to two labels process at a
+                    time.' : (r.progress * 100 | number:'1.0-0') + '%
+                    complete'}}</small
+                  >
+                </div>
+                } @if(r.state === 'error') {
+                <div class="error-state">
+                  <p-icon name="alert" [size]="30" />
+                  <h3>We need a clearer look.</h3>
+                  <p>{{r.error}}</p>
+                  <button
+                    class="button secondary"
+                    (click)="startUpload('single')"
+                  >
+                    Upload another image
+                  </button>
+                </div>
+                } @if(r.result) {
+                <div class="comparison-head">
+                  <span>APPLICATION</span><span>ON THE LABEL</span>
+                </div>
+                @for(c of fieldChecks(); track c.key){
+                <div
+                  class="field-check"
+                  [class.field-flagged]="c.status === 'mismatch'"
+                >
+                  <div class="field-name">
+                    <span [class]="'check-icon ' + c.status"
+                      ><p-icon
+                        [name]="c.status === 'match' ? 'check' : c.status === 'mismatch' ? 'close' : 'clock'"
+                        [size]="12" /></span
+                    >{{c.label}}<span class="sr-only">: {{c.status}}</span>
+                  </div>
+                  <div class="field-values">
+                    <span>{{c.expected}}</span
+                    ><span [title]="c.detail">{{c.observed}}</span>
+                  </div>
+                </div>
+                }
+                <div
+                  class="warning-summary"
+                  [class.warning-error]="warningStatus() === 'mismatch'"
+                >
+                  <span
+                    class="check-icon"
+                    [class]="'check-icon ' + warningStatus()"
+                    ><p-icon
+                      [name]="warningStatus() === 'match' ? 'check' : warningStatus() === 'mismatch' ? 'close' : 'clock'"
+                      [size]="12"
+                  /></span>
+                  <div>
+                    <strong>Government warning</strong>
+                    <p>{{warningDescription()}}</p>
+                  </div>
+                  <button
+                    class="icon-button"
+                    aria-label="Read extracted warning text"
+                    (click)="tab.set('text')"
+                  >
+                    <p-icon name="chevron" [size]="15" />
+                  </button>
+                </div>
+                }
+              </div>
+            </div>
+            @if(r.result && r.state === 'ready') {
+            <div class="review-confirm" [class.confirmed]="r.boldConfirmed">
+              <span class="confirm-symbol"
+                ><p-icon
+                  [name]="r.boldConfirmed ? 'shield' : 'info'"
+                  [size]="19"
+              /></span>
+              <div>
+                <strong
+                  >{{r.boldConfirmed ? 'Visual warning check confirmed' : 'One
+                  detail needs your eyes.'}}</strong
+                >
+                <p>
+                  Confirm the warning header is bold, the rest is regular type,
+                  and the text is legible.
+                </p>
+                <label class="checkbox-label"
+                  ><input
+                    type="checkbox"
+                    [checked]="r.boldConfirmed"
+                    [disabled]="!!r.decision || !r.imageUrl"
+                    (change)="store.setTypography(r.id,$any($event.target).checked)"
+                  />I checked the warning’s formatting on the artwork.</label
+                >
+              </div>
+            </div>
+            } } @else if(tab() === 'application') {
+            <div class="application-body">
+              <div class="tab-intro">
+                <h3>The application is your source of truth.</h3>
+                <p>
+                  Correct the expected values, then run the comparison again.
+                </p>
+              </div>
+              <p-application-form
+                [value]="draft()"
+                (valueChange)="draft.set($event)"
+                prefix="edit"
+              />@if(editError()){
+              <p class="form-error" role="alert">{{editError()}}</p>
+              }
+              <div class="edit-footer">
+                <span>Updating details reopens a completed review.</span
+                ><button class="button primary" (click)="saveApplication()">
+                  Save & recheck<p-icon name="refresh" [size]="15" />
+                </button>
+              </div>
+            </div>
+            } @else {
+            <div class="extracted-body">
+              <div class="text-meta">
+                <div>
+                  <h3>
+                    {{r.sample ? 'Sample label observations' : 'What the OCR
+                    could read'}}
+                  </h3>
+                  <p>
+                    {{r.sample ? 'Curated text for exploring the workflow.
+                    Upload the sample PNG to test real OCR.' : 'Raw text is
+                    preserved so you can check every comparison.'}}
+                  </p>
+                </div>
+                @if(!r.sample && r.text){<span class="confidence-badge"
+                  >{{r.confidence}}% confidence</span
+                >}
+              </div>
+              @if(r.text){
+              <pre class="extracted-text">{{r.text}}</pre>
+              } @else {
+              <p class="empty-text">
+                {{r.state === 'error' ? 'No text was extracted. Try a clearer
+                label image.' : 'Extracted text will appear when processing
+                finishes.'}}
+              </p>
+              }
+              <div class="text-footnote">
+                <p-icon name="info" [size]="15" /><span
+                  >OCR cannot establish font weight or physical type size.
+                  Always inspect the artwork.</span
+                >
+              </div>
+              @if(r.durationMs){<small class="timing"
+                >OCR completed in {{r.durationMs / 1000 | number:'1.1-1'}}
+                seconds, including engine initialization and worker wait.</small
+              >}
+            </div>
+            }
+            <footer class="inspector-footer">
+              @if(r.decision){
+              <div class="decision-saved">
+                <span class="mini-icon green"
+                  ><p-icon name="check" [size]="14" /></span
+                ><span
+                  ><strong
+                    >{{r.decision === 'approved' ? 'Review approved' : 'Changes
+                    requested'}}</strong
+                  ><small
+                    >{{r.reviewedAt | date:'MMM d, h:mm a'}}{{r.notes ? ' · ' +
+                    r.notes : ''}}</small
+                  ></span
+                >
+              </div>
+              <button class="button secondary" (click)="reopen()">
+                Reopen review</button
+              >} @else {
+              <div class="footer-note">
+                <p-icon name="shield" [size]="16" /><span
+                  >Your judgment.<br /><strong>The final word.</strong></span
+                >
+              </div>
+              <div class="decision-actions">
+                <button
+                  class="button secondary"
+                  [disabled]="r.state !== 'ready'"
+                  (click)="openReturn()"
+                >
+                  Request changes</button
+                ><button
+                  class="button primary"
+                  [disabled]="!canApprove()"
+                  [title]="canApprove() ? 'Save your approval' : 'Resolve mismatches and confirm warning formatting to approve'"
+                  (click)="approve()"
+                >
+                  <p-icon name="check" [size]="17" />Approve label
+                </button>
+              </div>
+              }
+            </footer>
+          </article>
+          } @else {
+          <div class="empty-inspector">
+            <p-icon name="layers" [size]="35" />
+            <h2>Your next review starts here.</h2>
+            <p>Add a label and its application details to begin.</p>
+            <button class="button primary" (click)="startUpload('single')">
+              New verification
+            </button>
+          </div>
+          }
+        </div>
+      </section>
+      <div class="workspace-footer">
+        <span
+          ><span class="live-dot"></span> {{store.running() ? 'Processing
+          locally' : 'All work stays in this browser'}}<span
+            class="footer-divider"
+            >/</span
+          ><span class="footer-tagline"
+            >Human decisions, assisted by AI</span
+          ></span
+        ><button class="text-link" (click)="clearDialog.showModal()">
+          Clear local history
+        </button>
+      </div>
+      } @else {
+      <section class="page-heading">
+        <div>
+          <div class="eyebrow">THE DETAILS BEHIND THE DECISION</div>
+          <h1>A little guidance. A clearer review.</h1>
+          <p>
+            How Proof helps you check labels, and where your judgment comes in.
+          </p>
+        </div>
+        <a
+          class="button secondary"
+          href="https://www.ttb.gov/regulated-commodities/labeling/labeling-resources"
+          target="_blank"
+          rel="noopener"
+          >TTB labeling resources<p-icon name="external" [size]="16"
+        /></a>
+      </section>
+      <div class="guide-grid">
+        <section class="guide-card">
+          <span class="guide-number">01</span>
+          <h2>Start with the application.</h2>
+          <p>
+            Upload a clear, readable image with all required label panels
+            visible. Enter the expected brand, beverage type, class, ABV, net
+            contents, producer, and origin for imports.
+          </p>
+          <p>
+            For a batch, use the CSV template and match each row to its image
+            filename. Up to 300 images are processed with two OCR workers.
+          </p>
+          <a class="text-link" href="samples/batch-template.csv" download
+            >Download batch template<p-icon name="download" [size]="15"
+          /></a>
+        </section>
+        <section class="guide-card">
+          <span class="guide-number">02</span>
+          <h2>Let the details line up.</h2>
+          <p>
+            Brand and class comparisons allow case, spacing, and smart
+            apostrophe differences. ABV values must agree, and proof is
+            cross-checked. Net contents supports equivalent milliliters, liters,
+            and US fluid ounces.
+          </p>
+          <p>
+            Low OCR confidence and ambiguous text stay open for review. Red
+            flags identify missing information or mismatches, rather than making
+            the final decision.
+          </p>
+        </section>
+        <section class="guide-card wide">
+          <span class="guide-number">03</span>
+          <h2>Give the warning a closer look.</h2>
+          <p>
+            The required statement is compared word for word, allowing line
+            wrapping. The header must be uppercase. Inspect the artwork to
+            confirm a bold header, regular-weight body, readable type and
+            contrast.
+          </p>
+          <blockquote>{{standardWarning}}</blockquote>
+          <a
+            class="text-link"
+            href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/distilled-spirits/ds-labeling-home/ds-health-warning"
+            target="_blank"
+            rel="noopener"
+            >Official TTB warning guidance<p-icon name="external" [size]="15"
+          /></a>
+        </section>
+        <section class="guide-card">
+          <span class="guide-number">04</span>
+          <h2>You make the call.</h2>
+          <p>
+            Once all checks match and formatting is confirmed, approve the label
+            or request changes with a note. This saves a prototype review
+            decision locally; it does not submit an official COLA determination.
+          </p>
+          <p>
+            Exports include field comparisons, notes, and review decisions. You
+            can reopen any review from your history.
+          </p>
+        </section>
+        <section class="guide-card privacy-guide">
+          <p-icon name="shield" [size]="30" />
+          <h2>Private by design.</h2>
+          <p>
+            The neural OCR engine runs in your browser. Images stay in memory;
+            review text and decisions are saved in this browser’s local storage.
+            Original uploads disappear when you refresh.
+          </p>
+          <p>
+            Clear local history to remove saved reviews. The first engine load
+            may take longer; five seconds is a target for warmed-up processing,
+            not a guarantee.
+          </p>
+        </section>
+      </div>
+      }
+    </main>
+  </div>
+</div>
+@if(upload(); as mode){<p-upload-dialog
+  [mode]="mode"
+  (closed)="closeUpload()"
+  (submitted)="addUpload($event)"
+/>} @if(store.notice()){
+<div class="toast" role="status">
+  <p-icon name="info" [size]="18" /><span>{{store.notice()}}</span
+  ><button
+    class="icon-button"
+    aria-label="Dismiss notification"
+    (click)="store.notice.set('')"
+  >
+    <p-icon name="close" [size]="16" />
+  </button>
+</div>
+}
+<dialog
+  #imageDialog
+  class="modal image-modal"
+  aria-label="Enlarged label artwork"
+>
+  <div class="modal-heading">
+    <div>
+      <span class="eyebrow">LABEL ARTWORK</span>
+      <h2>{{active()?.application?.brand}}</h2>
+    </div>
+    <button
+      class="icon-button"
+      aria-label="Close artwork preview"
+      (click)="imageDialog.close()"
+    >
+      <p-icon name="close" />
+    </button>
+  </div>
+  @if(active()?.imageUrl){
+  <div class="enlarged-artwork">
+    <img
+      [src]="active()!.imageUrl"
+      [alt]="active()!.application.brand + ' full-size label'"
+    />
+  </div>
+  }
+  <div class="modal-footer">
+    <span>Check warning weight, type size, and legibility.</span
+    ><button class="button secondary" (click)="downloadLabel()">
+      <p-icon name="download" [size]="16" />Download PNG
+    </button>
+  </div>
+</dialog>
+<dialog
+  #returnDialog
+  class="modal small-modal"
+  aria-label="Request label changes"
+>
+  <div class="modal-heading">
+    <span class="eyebrow">REVIEW DECISION</span
+    ><button
+      class="icon-button"
+      aria-label="Close change request"
+      (click)="returnDialog.close()"
+    >
+      <p-icon name="close" />
+    </button>
+  </div>
+  <h2>Make the next step clear.</h2>
+  <p class="modal-description">
+    Describe what needs to change on {{active()?.application?.brand}}.
+  </p>
+  <label class="textarea-label" for="return-notes"
+    >Reviewer notes <span>Required</span></label
+  ><textarea
+    id="return-notes"
+    rows="5"
+    maxlength="2000"
+    placeholder="For example: The label states 12.5% ABV, but the application states 13%. Please correct the application or artwork."
+    [ngModel]="notes()"
+    (ngModelChange)="notes.set($event)"
+  ></textarea
+  >@if(returnError()){
+  <p class="form-error" role="alert">{{returnError()}}</p>
+  }
+  <div class="modal-footer">
+    <button class="button secondary" (click)="returnDialog.close()">
+      Cancel</button
+    ><button class="button primary" (click)="returnForChanges()">
+      Save change request<p-icon name="arrow" [size]="16" />
+    </button>
+  </div>
+</dialog>
+<dialog
+  #clearDialog
+  class="modal small-modal"
+  aria-label="Clear local review history"
+>
+  <div class="modal-heading">
+    <span class="eyebrow">LOCAL WORKSPACE</span
+    ><button
+      class="icon-button"
+      aria-label="Cancel clearing history"
+      (click)="clearDialog.close()"
+    >
+      <p-icon name="close" />
+    </button>
+  </div>
+  <h2>Clear your local history?</h2>
+  <p class="modal-description">
+    This removes uploaded labels, extracted text, and review decisions from this
+    browser. Download a report first if you need a copy. The sample workspace
+    will be restored.
+  </p>
+  <div class="modal-footer">
+    <button class="button secondary" (click)="clearDialog.close()">
+      Keep history</button
+    ><button
+      class="button danger"
+      (click)="store.clearHistory();clearDialog.close()"
+    >
+      Clear history
+    </button>
+  </div>
+</dialog>

@@ -1,0 +1,600 @@
+[
+  {
+    "id": "d2335c4d-7510-4420-992b-3ee9a65413eb",
+    "filename": "old-tom-bourbon.png",
+    "application": {
+      "brand": "Old Tom Distillery",
+      "beverage": "spirits",
+      "classType": "Kentucky Straight Bourbon Whiskey",
+      "abv": "45%",
+      "netContents": "750 mL",
+      "producer": "Old Tom Distillery, Bardstown, KY",
+      "country": "United States",
+      "imported": false
+    },
+    "imageUrl": "",
+    "sample": false,
+    "text": "OLD TOM\n\nDISTILLERY\n\nKENTUCKY STRAIGHT\nBOURBON WHISKEY\n\nSMALL BATCH - SLOW AGED\n\n45% Alc./Vol. (90 Proof)\n750 mL\n\nDISTILLED AND BOTTLED BY\nOld Tom Distillery, Bardstown, KY\n\nGOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+    "confidence": 95,
+    "state": "ready",
+    "progress": 1,
+    "boldConfirmed": false,
+    "decision": null,
+    "notes": "",
+    "createdAt": "2026-10-15T16:33:21.243Z",
+    "durationMs": 823,
+    "result": {
+      "checks": [
+        {
+          "key": "brand",
+          "label": "Brand name",
+          "expected": "Old Tom Distillery",
+          "observed": "OLD TOM DISTILLERY",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "classType",
+          "label": "Class / type",
+          "expected": "Kentucky Straight Bourbon Whiskey",
+          "observed": "KENTUCKY STRAIGHT BOURBON WHISKEY",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "abv",
+          "label": "Alcohol content",
+          "expected": "45%",
+          "observed": "45% ABV · 90 proof",
+          "status": "match",
+          "detail": "ABV matches numerically. Any proof declaration is consistent."
+        },
+        {
+          "key": "netContents",
+          "label": "Net contents",
+          "expected": "750 mL",
+          "observed": "750 mL",
+          "status": "match",
+          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+        },
+        {
+          "key": "producer",
+          "label": "Producer / bottler and address",
+          "expected": "Old Tom Distillery, Bardstown, KY",
+          "observed": "Old Tom Distillery, Bardstown, KY",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "warning",
+          "label": "Government warning wording",
+          "expected": "GOVERNMENT WARNING: (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.",
+          "observed": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+          "status": "match",
+          "detail": "Exact required text, including punctuation; line breaks and spacing are ignored."
+        },
+        {
+          "key": "warningHeader",
+          "label": "Warning header capitals",
+          "expected": "GOVERNMENT WARNING:",
+          "observed": "GOVERNMENT WARNING:",
+          "status": "match",
+          "detail": "The extracted header is uppercase and includes the colon."
+        },
+        {
+          "key": "warningTypography",
+          "label": "Warning typography",
+          "expected": "Bold header; regular-weight body",
+          "observed": "Visual confirmation needed",
+          "status": "review",
+          "detail": "OCR text cannot establish bold weight, minimum type size, contrast, or placement. Inspect the image before confirming typography."
+        }
+      ],
+      "status": "review",
+      "warningText": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+      "warningExact": true,
+      "warningHeaderCorrect": true
+    }
+  },
+  {
+    "id": "2f4ca325-1294-4b0c-bd09-2acf5a8d4f56",
+    "filename": "stones-throw-gin.png",
+    "application": {
+      "brand": "Stone’s Throw",
+      "beverage": "spirits",
+      "classType": "London Dry Gin",
+      "abv": "42%",
+      "netContents": "750 mL",
+      "producer": "Stone’s Throw Distilling, Portland, OR",
+      "country": "United States",
+      "imported": false
+    },
+    "imageUrl": "",
+    "sample": false,
+    "text": "STONE'S THROW\n\nLONDON DRY GIN\n\nBOTANICAL SERIES\n\nJUNIPER - CORIANDER - CITRUS\n\n42% Alc./Vol.\n750 mL\n\nDISTILLED AND BOTTLED BY\nStone's Throw Distilling, Portland, OR\n\nGOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+    "confidence": 95,
+    "state": "ready",
+    "progress": 1,
+    "boldConfirmed": false,
+    "decision": null,
+    "notes": "",
+    "createdAt": "2026-10-15T16:33:21.243Z",
+    "durationMs": 789,
+    "result": {
+      "checks": [
+        {
+          "key": "brand",
+          "label": "Brand name",
+          "expected": "Stone’s Throw",
+          "observed": "STONE'S THROW",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "classType",
+          "label": "Class / type",
+          "expected": "London Dry Gin",
+          "observed": "LONDON DRY GIN",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "abv",
+          "label": "Alcohol content",
+          "expected": "42%",
+          "observed": "42% ABV",
+          "status": "match",
+          "detail": "ABV matches numerically. Any proof declaration is consistent."
+        },
+        {
+          "key": "netContents",
+          "label": "Net contents",
+          "expected": "750 mL",
+          "observed": "750 mL",
+          "status": "match",
+          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+        },
+        {
+          "key": "producer",
+          "label": "Producer / bottler and address",
+          "expected": "Stone’s Throw Distilling, Portland, OR",
+          "observed": "Stone's Throw Distilling, Portland, OR",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "warning",
+          "label": "Government warning wording",
+          "expected": "GOVERNMENT WARNING: (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.",
+          "observed": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+          "status": "match",
+          "detail": "Exact required text, including punctuation; line breaks and spacing are ignored."
+        },
+        {
+          "key": "warningHeader",
+          "label": "Warning header capitals",
+          "expected": "GOVERNMENT WARNING:",
+          "observed": "GOVERNMENT WARNING:",
+          "status": "match",
+          "detail": "The extracted header is uppercase and includes the colon."
+        },
+        {
+          "key": "warningTypography",
+          "label": "Warning typography",
+          "expected": "Bold header; regular-weight body",
+          "observed": "Visual confirmation needed",
+          "status": "review",
+          "detail": "OCR text cannot establish bold weight, minimum type size, contrast, or placement. Inspect the image before confirming typography."
+        }
+      ],
+      "status": "review",
+      "warningText": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+      "warningExact": true,
+      "warningHeaderCorrect": true
+    }
+  },
+  {
+    "id": "bcf47dad-7b9b-45c7-8666-1f5419c46557",
+    "filename": "maison-lucette-wine.png",
+    "application": {
+      "brand": "Maison Lucette",
+      "beverage": "wine",
+      "classType": "Sauvignon Blanc",
+      "abv": "13%",
+      "netContents": "750 mL",
+      "producer": "Maison Lucette, Bordeaux, France",
+      "country": "France",
+      "imported": true
+    },
+    "imageUrl": "",
+    "sample": false,
+    "text": "MAISON\nLUCETTE\n\nSAUVIGNON BLANC\n\nBORDEAUX :- 2024\n\n12.5% Alc./Vol.\n750 mL\n\nPRODUCED AND BOTTLED BY\nMaison Lucette, Bordeaux, France\n\nPRODUCT OF FRANCE\n\nGOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+    "confidence": 94,
+    "state": "ready",
+    "progress": 1,
+    "boldConfirmed": false,
+    "decision": null,
+    "notes": "",
+    "createdAt": "2026-10-15T16:33:21.243Z",
+    "durationMs": 586,
+    "result": {
+      "checks": [
+        {
+          "key": "brand",
+          "label": "Brand name",
+          "expected": "Maison Lucette",
+          "observed": "MAISON LUCETTE",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "classType",
+          "label": "Class / type",
+          "expected": "Sauvignon Blanc",
+          "observed": "SAUVIGNON BLANC",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "abv",
+          "label": "Alcohol content",
+          "expected": "13%",
+          "observed": "12.5% ABV",
+          "status": "mismatch",
+          "detail": "The extracted ABV differs from the application or contains conflicting values."
+        },
+        {
+          "key": "netContents",
+          "label": "Net contents",
+          "expected": "750 mL",
+          "observed": "750 mL",
+          "status": "match",
+          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+        },
+        {
+          "key": "producer",
+          "label": "Producer / bottler and address",
+          "expected": "Maison Lucette, Bordeaux, France",
+          "observed": "Maison Lucette, Bordeaux, France",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "country",
+          "label": "Country of origin",
+          "expected": "France",
+          "observed": "France",
+          "status": "match",
+          "detail": "The application country appears in an explicit product-origin declaration."
+        },
+        {
+          "key": "warning",
+          "label": "Government warning wording",
+          "expected": "GOVERNMENT WARNING: (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.",
+          "observed": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+          "status": "match",
+          "detail": "Exact required text, including punctuation; line breaks and spacing are ignored."
+        },
+        {
+          "key": "warningHeader",
+          "label": "Warning header capitals",
+          "expected": "GOVERNMENT WARNING:",
+          "observed": "GOVERNMENT WARNING:",
+          "status": "match",
+          "detail": "The extracted header is uppercase and includes the colon."
+        },
+        {
+          "key": "warningTypography",
+          "label": "Warning typography",
+          "expected": "Bold header; regular-weight body",
+          "observed": "Visual confirmation needed",
+          "status": "review",
+          "detail": "OCR text cannot establish bold weight, minimum type size, contrast, or placement. Inspect the image before confirming typography."
+        }
+      ],
+      "status": "flagged",
+      "warningText": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+      "warningExact": true,
+      "warningHeaderCorrect": true
+    }
+  },
+  {
+    "id": "40b6e161-ff69-4565-9fcc-31cc5719c634",
+    "filename": "pacific-standard-beer.png",
+    "application": {
+      "brand": "Pacific Standard",
+      "beverage": "beer",
+      "classType": "West Coast Pale Ale",
+      "abv": "5.2%",
+      "netContents": "355 mL",
+      "producer": "Pacific Standard Brewing, San Diego, CA",
+      "country": "United States",
+      "imported": false
+    },
+    "imageUrl": "",
+    "sample": false,
+    "text": "PACIFIC\nSTANDARD\n\nWEST COAST PALE ALE\n\nBRIGHT HOPS. OPEN WATER.\n\n5.2% Alc./Vol.\n355 mL\n\nBREWED AND CANNED BY\nPacific Standard Brewing, San Diego, CA",
+    "confidence": 95,
+    "state": "ready",
+    "progress": 1,
+    "boldConfirmed": false,
+    "decision": null,
+    "notes": "",
+    "createdAt": "2026-10-15T16:33:21.244Z",
+    "durationMs": 321,
+    "result": {
+      "checks": [
+        {
+          "key": "brand",
+          "label": "Brand name",
+          "expected": "Pacific Standard",
+          "observed": "PACIFIC STANDARD",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "classType",
+          "label": "Class / type",
+          "expected": "West Coast Pale Ale",
+          "observed": "WEST COAST PALE ALE",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "abv",
+          "label": "Alcohol content",
+          "expected": "5.2%",
+          "observed": "5.2% ABV",
+          "status": "match",
+          "detail": "ABV matches numerically. Any proof declaration is consistent."
+        },
+        {
+          "key": "netContents",
+          "label": "Net contents",
+          "expected": "355 mL",
+          "observed": "355 mL",
+          "status": "match",
+          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+        },
+        {
+          "key": "producer",
+          "label": "Producer / bottler and address",
+          "expected": "Pacific Standard Brewing, San Diego, CA",
+          "observed": "Pacific Standard Brewing, San Diego, CA",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "warning",
+          "label": "Government warning wording",
+          "expected": "GOVERNMENT WARNING: (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.",
+          "observed": "Not found in extracted text",
+          "status": "mismatch",
+          "detail": "Missing or altered warning text. Compare the full statement, punctuation, and capitalization against the artwork."
+        },
+        {
+          "key": "warningHeader",
+          "label": "Warning header capitals",
+          "expected": "GOVERNMENT WARNING:",
+          "observed": "Not found",
+          "status": "mismatch",
+          "detail": "The header must read GOVERNMENT WARNING: in capital letters."
+        },
+        {
+          "key": "warningTypography",
+          "label": "Warning typography",
+          "expected": "Bold header; regular-weight body",
+          "observed": "Visual confirmation needed",
+          "status": "review",
+          "detail": "OCR text cannot establish bold weight, minimum type size, contrast, or placement. Inspect the image before confirming typography."
+        }
+      ],
+      "status": "flagged",
+      "warningText": "",
+      "warningExact": false,
+      "warningHeaderCorrect": false
+    }
+  },
+  {
+    "id": "787da74b-13c3-4690-95cc-c180eba37fee",
+    "filename": "amber-field-wine.png",
+    "application": {
+      "brand": "Amber Field",
+      "beverage": "wine",
+      "classType": "Chardonnay",
+      "abv": "12%",
+      "netContents": "750 mL",
+      "producer": "Amber Field Cellars, Sonoma, CA",
+      "country": "United States",
+      "imported": false
+    },
+    "imageUrl": "",
+    "sample": false,
+    "text": "~~\n—_—\n—\n—\n\nAMBER FIELD\n\nCHARDONNAY\n\nSONOMA COUNTY - 2024\n\nSUN GROWN. SLOW MADE.\n\n12% Alc./Vol.\n750 mL\n\nPRODUCED AND BOTTLED BY\nAmber Field Cellars, Sonoma, CA\n\nGOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+    "confidence": 91,
+    "state": "ready",
+    "progress": 1,
+    "boldConfirmed": false,
+    "decision": null,
+    "notes": "",
+    "createdAt": "2026-10-15T16:33:21.244Z",
+    "durationMs": 609,
+    "result": {
+      "checks": [
+        {
+          "key": "brand",
+          "label": "Brand name",
+          "expected": "Amber Field",
+          "observed": "AMBER FIELD",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "classType",
+          "label": "Class / type",
+          "expected": "Chardonnay",
+          "observed": "CHARDONNAY",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "abv",
+          "label": "Alcohol content",
+          "expected": "12%",
+          "observed": "12% ABV",
+          "status": "match",
+          "detail": "ABV matches numerically. Any proof declaration is consistent."
+        },
+        {
+          "key": "netContents",
+          "label": "Net contents",
+          "expected": "750 mL",
+          "observed": "750 mL",
+          "status": "match",
+          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+        },
+        {
+          "key": "producer",
+          "label": "Producer / bottler and address",
+          "expected": "Amber Field Cellars, Sonoma, CA",
+          "observed": "Amber Field Cellars, Sonoma, CA",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "warning",
+          "label": "Government warning wording",
+          "expected": "GOVERNMENT WARNING: (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.",
+          "observed": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+          "status": "match",
+          "detail": "Exact required text, including punctuation; line breaks and spacing are ignored."
+        },
+        {
+          "key": "warningHeader",
+          "label": "Warning header capitals",
+          "expected": "GOVERNMENT WARNING:",
+          "observed": "GOVERNMENT WARNING:",
+          "status": "match",
+          "detail": "The extracted header is uppercase and includes the colon."
+        },
+        {
+          "key": "warningTypography",
+          "label": "Warning typography",
+          "expected": "Bold header; regular-weight body",
+          "observed": "Visual confirmation needed",
+          "status": "review",
+          "detail": "OCR text cannot establish bold weight, minimum type size, contrast, or placement. Inspect the image before confirming typography."
+        }
+      ],
+      "status": "review",
+      "warningText": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+      "warningExact": true,
+      "warningHeaderCorrect": true
+    }
+  },
+  {
+    "id": "03e9a8ad-187d-4be4-92ef-b093d870a02e",
+    "filename": "costa-azul-tequila.png",
+    "application": {
+      "brand": "Costa Azul",
+      "beverage": "spirits",
+      "classType": "Tequila Blanco",
+      "abv": "40%",
+      "netContents": "750 mL",
+      "producer": "Destilería Costa Azul, Jalisco",
+      "country": "Mexico",
+      "imported": true
+    },
+    "imageUrl": "",
+    "sample": false,
+    "text": "COSTA\nAZUL\n\nTEQUILA BLANCO\n\n100% BLUE AGAVE\n\n40% Alc./Vol. (80 Proof)\n750 mL\n\nDISTILLED AND BOTTLED BY\nDestileria Costa Azul, Jalisco\n\nGOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+    "confidence": 94,
+    "state": "ready",
+    "progress": 1,
+    "boldConfirmed": false,
+    "decision": null,
+    "notes": "",
+    "createdAt": "2026-10-15T16:33:21.244Z",
+    "durationMs": 559,
+    "result": {
+      "checks": [
+        {
+          "key": "brand",
+          "label": "Brand name",
+          "expected": "Costa Azul",
+          "observed": "COSTA AZUL",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "classType",
+          "label": "Class / type",
+          "expected": "Tequila Blanco",
+          "observed": "TEQUILA BLANCO",
+          "status": "match",
+          "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+        },
+        {
+          "key": "abv",
+          "label": "Alcohol content",
+          "expected": "40%",
+          "observed": "40% ABV · 80 proof",
+          "status": "match",
+          "detail": "ABV matches numerically. Any proof declaration is consistent."
+        },
+        {
+          "key": "netContents",
+          "label": "Net contents",
+          "expected": "750 mL",
+          "observed": "750 mL",
+          "status": "match",
+          "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+        },
+        {
+          "key": "producer",
+          "label": "Producer / bottler and address",
+          "expected": "Destilería Costa Azul, Jalisco",
+          "observed": "Not found in extracted text",
+          "status": "mismatch",
+          "detail": "The application value was not found. Compare the artwork and OCR text."
+        },
+        {
+          "key": "country",
+          "label": "Country of origin",
+          "expected": "Mexico",
+          "observed": "Not found in extracted text",
+          "status": "mismatch",
+          "detail": "The application value was not found. Compare the artwork and OCR text."
+        },
+        {
+          "key": "warning",
+          "label": "Government warning wording",
+          "expected": "GOVERNMENT WARNING: (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.",
+          "observed": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+          "status": "match",
+          "detail": "Exact required text, including punctuation; line breaks and spacing are ignored."
+        },
+        {
+          "key": "warningHeader",
+          "label": "Warning header capitals",
+          "expected": "GOVERNMENT WARNING:",
+          "observed": "GOVERNMENT WARNING:",
+          "status": "match",
+          "detail": "The extracted header is uppercase and includes the colon."
+        },
+        {
+          "key": "warningTypography",
+          "label": "Warning typography",
+          "expected": "Bold header; regular-weight body",
+          "observed": "Visual confirmation needed",
+          "status": "review",
+          "detail": "OCR text cannot establish bold weight, minimum type size, contrast, or placement. Inspect the image before confirming typography."
+        }
+      ],
+      "status": "flagged",
+      "warningText": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+      "warningExact": true,
+      "warningHeaderCorrect": true
+    }
+  }
+]

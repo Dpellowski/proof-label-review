@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1120" viewBox="0 0 800 1120" role="img" aria-labelledby="title">
+<title id="title">Maison Lucette wine — fictional sample label</title>
+<rect width="800" height="1120" fill="#f4e9e5"/>
+<g font-family="Georgia, 'Times New Roman', serif" color="#673344">
+  <rect x="38" y="38" width="724" height="1044" fill="none" stroke="#9b6870"/>
+  <path d="M70 70h660v290H70z" fill="#e8d5d0"/>
+  <circle cx="400" cy="181" r="64" fill="#c8886f"/>
+  <g fill="none" stroke="#90686b" stroke-width="2">
+    <path d="M70 303Q230 196 400 284T730 285M70 335Q246 237 429 311T730 323"/>
+    <path d="M70 355Q230 287 400 335T730 347M210 248L295 360M265 244l76 116M322 257l66 103M485 311l-18 49M550 312l-13 48M616 303l-8 57"/>
+  </g>
+  <text x="400" y="450" fill="#673344" text-anchor="middle" font-size="53" letter-spacing="9">MAISON</text>
+  <text x="400" y="523" fill="#673344" text-anchor="middle" font-size="74" letter-spacing="7">LUCETTE</text>
+  <text x="400" y="589" fill="#673344" text-anchor="middle" font-size="28" letter-spacing="4">SAUVIGNON BLANC</text>
+  <text x="400" y="632" fill="#996b70" text-anchor="middle" font-size="21" letter-spacing="3">BORDEAUX · 2024</text>
+  <path d="M270 667H530" stroke="#bd999b"/>
+  <text x="400" y="718" fill="#673344" text-anchor="middle" font-size="27" >12.5% Alc./Vol.</text>
+  <text x="400" y="755" fill="#673344" text-anchor="middle" font-size="24" >750 mL</text>
+  <text x="400" y="797" fill="#673344" text-anchor="middle" font-size="17" font-family="Arial, sans-serif" letter-spacing="2">PRODUCED AND BOTTLED BY</text>
+  <text x="400" y="825" fill="#673344" text-anchor="middle" font-size="21" font-family="Arial, sans-serif">Maison Lucette, Bordeaux, France</text>
+  <text x="400" y="859" fill="#673344" text-anchor="middle" font-size="17" font-family="Arial, sans-serif" letter-spacing="3">PRODUCT OF FRANCE</text>
+  <g fill="#502b37" font-family="Arial, Helvetica, sans-serif" font-size="18">
+  <text x="86" y="907" font-weight="700">GOVERNMENT WARNING:</text>
+  <text x="86" y="935">(1) According to the Surgeon General, women should not drink</text>
+  <text x="86" y="960">alcoholic beverages during pregnancy because of the risk of</text>
+  <text x="86" y="985">birth defects. (2) Consumption of alcoholic beverages impairs</text>
+  <text x="86" y="1010">your ability to drive a car or operate machinery, and may</text>
+  <text x="86" y="1035">cause health problems.</text>
+</g>
+</g>
+</svg>

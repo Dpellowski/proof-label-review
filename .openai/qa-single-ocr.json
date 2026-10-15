@@ -1,0 +1,97 @@
+{
+  "id": "d3c137d1-bc37-4f90-8b88-d96021e7d7e2",
+  "filename": "old-tom-bourbon.png",
+  "application": {
+    "brand": "Old Tom Distillery",
+    "beverage": "spirits",
+    "classType": "Kentucky Straight Bourbon Whiskey",
+    "abv": "45%",
+    "netContents": "750 mL",
+    "producer": "Old Tom Distillery, Bardstown, KY",
+    "country": "",
+    "imported": false
+  },
+  "imageUrl": "",
+  "sample": false,
+  "text": "OLD TOM\n\nDISTILLERY\n\nKENTUCKY STRAIGHT\nBOURBON WHISKEY\n\nSMALL BATCH - SLOW AGED\n\n45% Alc./Vol. (90 Proof)\n750 mL\n\nDISTILLED AND BOTTLED BY\nOld Tom Distillery, Bardstown, KY\n\nGOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+  "confidence": 95,
+  "state": "ready",
+  "progress": 1,
+  "boldConfirmed": false,
+  "decision": null,
+  "notes": "",
+  "createdAt": "2026-10-15T16:33:19.176Z",
+  "durationMs": 1057,
+  "result": {
+    "checks": [
+      {
+        "key": "brand",
+        "label": "Brand name",
+        "expected": "Old Tom Distillery",
+        "observed": "OLD TOM DISTILLERY",
+        "status": "match",
+        "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+      },
+      {
+        "key": "classType",
+        "label": "Class / type",
+        "expected": "Kentucky Straight Bourbon Whiskey",
+        "observed": "KENTUCKY STRAIGHT BOURBON WHISKEY",
+        "status": "match",
+        "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+      },
+      {
+        "key": "abv",
+        "label": "Alcohol content",
+        "expected": "45%",
+        "observed": "45% ABV · 90 proof",
+        "status": "match",
+        "detail": "ABV matches numerically. Any proof declaration is consistent."
+      },
+      {
+        "key": "netContents",
+        "label": "Net contents",
+        "expected": "750 mL",
+        "observed": "750 mL",
+        "status": "match",
+        "detail": "Matches after converting mL, L, and US fluid ounces (0.2% rounding tolerance, minimum 0.5 mL)."
+      },
+      {
+        "key": "producer",
+        "label": "Producer / bottler and address",
+        "expected": "Old Tom Distillery, Bardstown, KY",
+        "observed": "Old Tom Distillery, Bardstown, KY",
+        "status": "match",
+        "detail": "Matches after ignoring capitalization, spacing, and curly apostrophes."
+      },
+      {
+        "key": "warning",
+        "label": "Government warning wording",
+        "expected": "GOVERNMENT WARNING: (1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.",
+        "observed": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+        "status": "match",
+        "detail": "Exact required text, including punctuation; line breaks and spacing are ignored."
+      },
+      {
+        "key": "warningHeader",
+        "label": "Warning header capitals",
+        "expected": "GOVERNMENT WARNING:",
+        "observed": "GOVERNMENT WARNING:",
+        "status": "match",
+        "detail": "The extracted header is uppercase and includes the colon."
+      },
+      {
+        "key": "warningTypography",
+        "label": "Warning typography",
+        "expected": "Bold header; regular-weight body",
+        "observed": "Visual confirmation needed",
+        "status": "review",
+        "detail": "OCR text cannot establish bold weight, minimum type size, contrast, or placement. Inspect the image before confirming typography."
+      }
+    ],
+    "status": "review",
+    "warningText": "GOVERNMENT WARNING:\n\n(1) According to the Surgeon General, women should not drink\nalcoholic beverages during pregnancy because of the risk of\nbirth defects. (2) Consumption of alcoholic beverages impairs\nyour ability to drive a car or operate machinery, and may\ncause health problems.",
+    "warningExact": true,
+    "warningHeaderCorrect": true
+  }
+}

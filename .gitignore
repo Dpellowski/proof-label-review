@@ -1,0 +1,15 @@
+node_modules/
+.angular/
+out-tsc/
+dist/
+public/ocr/
+.sites-runtime/
+.env
+.env.*
+!.env.example
+playwright-report/
+test-results/
+*.tsbuildinfo
+.openai/*.png
+.openai/*.json.tmp
+.openai/qa-report.json
